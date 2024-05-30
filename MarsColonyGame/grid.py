@@ -9,7 +9,6 @@ class Grid:
         self.rows = rows
         self.cols = cols
         self.grid = [[Cell(col * cell_width, row * cell_height) for col in range(cols)] for row in range(rows)]
-        
 
     def draw_grid(self, screen):
         for row in self.grid:
@@ -21,6 +20,8 @@ class Grid:
         x, y = position
         col = x // self.cell_width
         row = y // self.cell_height
+        
+        # Checks if click is in bounds
         if 0 <= row < self.rows and 0 <= col <= self.cols:
             cell = self.grid[row][col]  
             cell.change_color((255, 0, 0))
