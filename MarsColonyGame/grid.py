@@ -16,12 +16,20 @@ class Grid:
                 draw.rect(screen, cell.color, (cell.pos_x, cell.pos_y, self.cell_width, self.cell_height))
                 draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_width, self.cell_height), 1)  # Cell border
 
-    def handle_click(self, position):
+    def handle_click(self, position, selected_building):
         x, y = position
         col = x // self.cell_width
         row = y // self.cell_height
         
         # Checks if click is in bounds
         if 0 <= row < self.rows and 0 <= col <= self.cols:
-            cell = self.grid[row][col]  
-            cell.change_color((255, 0, 0))
+            cell = self.grid[row][col] 
+            if selected_building and not cell.is_occupied:
+                cell.is_occupied = True
+
+                # Change color for now to represent occupation 
+                cell.change_color((0, 255, 0))
+                # TODO: Show the building built via an icon/image
+                return True
+        return False
+        
