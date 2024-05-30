@@ -1,5 +1,5 @@
-from grid import Grid
-from sidebar import Sidebar
+from ui_elements.grid import Grid
+from ui_elements.sidebar import Sidebar
 from sys import exit
 
 import pygame
@@ -48,8 +48,9 @@ def main():
                     pass
                 else:
                     # clicked on grid 
-                    if grid.handle_click(mouse_position, sidebar.selected_building):
-                        sidebar.selected_building = None
+                    if (SCREEN_WIDTH - SIDEBAR_WIDTH) > mouse_position[0]:
+                        if grid.handle_click(mouse_position, sidebar.selected_building):
+                            sidebar.selected_building = None
         # Fill screen black
         screen.fill((0, 0, 0))
 

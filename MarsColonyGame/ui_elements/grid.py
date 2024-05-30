@@ -1,4 +1,4 @@
-from cell import Cell
+from ui_elements.cell import Cell
 from pygame import draw
 
 class Grid:

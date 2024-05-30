@@ -1,4 +1,5 @@
 from pygame import draw, Rect
+from ui_elements.pane import Pane
 
 class Sidebar:
     def __init__(self, x, y, width, height, building_options) -> None:
@@ -10,13 +11,18 @@ class Sidebar:
         self.selected_building = None
     
     def draw_sidebar(self, screen):
+        
         # Sidebar Background
         draw.rect(screen, (200, 200, 200), (self.x, self.y, self.width, self.height))
 
         # Drawing the sidebar, by multiplying we calculate the vertical position of the building
-        for index, building in enumerate(self.building_options):
-            color = (150, 150, 150) if building == self.selected_building else (255, 255, 255)
-            draw.rect(screen, color, (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40))
+        for index, building_name in enumerate(self.building_options):
+            color = (150, 150, 150) if building_name == self.selected_building else (255, 255, 255)
+            pane_position = (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40)
+            pane = Pane(screen, pane_position, color)
+            pane.add_rect()
+            pane.add_text(building_name)
+            #draw.rect(screen, color, (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40))
 
             # TODO: add icon or text specific for each building
     
@@ -26,6 +32,10 @@ class Sidebar:
             for index, building in enumerate(self.building_options):
                 option_rect = Rect(self.x + 10, self.y + 10 + index * 50, self.width - 20, 40)
                 if option_rect.collidepoint(x, y):
-                    self.selected_building = building
+                    if self.selected_building == building:
+                        # Unselect if user clicks on the selected building
+                        self.selected_building = None
+                    else: 
+                        self.selected_building = building
                     return True
         return False
