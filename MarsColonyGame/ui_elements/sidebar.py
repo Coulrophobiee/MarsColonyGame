@@ -1,4 +1,4 @@
-from pygame import draw, Rect
+from pygame import draw, Rect, font
 from ui_elements.pane import Pane
 
 class Sidebar:
@@ -9,16 +9,22 @@ class Sidebar:
         self.height = height
         self.building_options = building_options
         self.selected_building = None
+        self.day_counter = 0
     
     def draw_sidebar(self, screen):
         
         # Sidebar Background
         draw.rect(screen, (200, 200, 200), (self.x, self.y, self.width, self.height))
 
-        # Drawing the sidebar, by multiplying we calculate the vertical position of the building
+        # Drawing the day counter
+        day_text_font = font.Font(None, 36)
+        day_text = day_text_font.render(f"Day: {self.day_counter}", True, (0, 0, 0))
+        screen.blit(day_text, (self.x + 10, self.y + 10))
+
+        # Drawing the sidebar buildung options, by multiplying we calculate the vertical position of the building
         for index, building_name in enumerate(self.building_options):
             color = (150, 150, 150) if building_name == self.selected_building else (255, 255, 255)
-            pane_position = (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40)
+            pane_position = (self.x + 10, self.y + 60 + index * 50, self.width - 20, 40)
             pane = Pane(screen, pane_position, color)
             pane.add_rect()
             pane.add_text(building_name)
@@ -39,3 +45,6 @@ class Sidebar:
                         self.selected_building = building
                     return True
         return False
+    
+    def increment_day_count(self):
+        self.day_counter += 1

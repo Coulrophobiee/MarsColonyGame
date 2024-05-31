@@ -34,6 +34,9 @@ def main():
     SIDEBAR_Y_POSITION = 0
     sidebar = Sidebar(SIDEBAR_X_POSTION, SIDEBAR_Y_POSITION, SIDEBAR_WIDTH, SIDEBAR_HEIGHT, BUILDING_OPTIONS)
     
+    # Define timer event and interval in milliseconds
+    NEW_DAY_EVENT = pygame.USEREVENT + 1
+    pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
 
     running = True
 
@@ -51,6 +54,8 @@ def main():
                     if (SCREEN_WIDTH - SIDEBAR_WIDTH) > mouse_position[0]:
                         if grid.handle_click(mouse_position, sidebar.selected_building):
                             sidebar.selected_building = None
+            elif event.type == NEW_DAY_EVENT:
+                sidebar.increment_day_count()
         # Fill screen black
         screen.fill((0, 0, 0))
 
