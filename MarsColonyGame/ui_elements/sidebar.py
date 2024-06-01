@@ -33,18 +33,17 @@ class Sidebar:
             # TODO: add icon or text specific for each building
     
     def handle_click(self, position):
+        # return False
         x, y = position
-        if self.x <= x <= self.x + self.width:
-            for index, building in enumerate(self.building_options):
-                option_rect = Rect(self.x + 10, self.y + 10 + index * 50, self.width - 20, 40)
-                if option_rect.collidepoint(x, y):
-                    if self.selected_building == building:
-                        # Unselect if user clicks on the selected building
-                        self.selected_building = None
-                    else: 
-                        self.selected_building = building
-                    return True
-        return False
+        for index, building_name in enumerate(self.building_options):
+            option_rect = Rect(self.x + 10, self.y + 60 + index * 50, self.width - 20, 40)
+            if option_rect.collidepoint(x, y):
+                if self.selected_building == building_name:
+                    # Unselect if the same building is clicked again
+                    self.selected_building = None  
+                else:
+                     # Select the new building
+                    self.selected_building = building_name 
     
     def increment_day_count(self):
         self.day_counter += 1
