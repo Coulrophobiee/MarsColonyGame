@@ -14,7 +14,7 @@ class Sidebar:
     def draw_sidebar(self, screen):
         
         # Sidebar Background
-        draw.rect(screen, (200, 200, 200), (self.x, self.y, self.width, self.height))
+        draw.rect(screen, (47, 79, 79), (self.x, self.y, self.width, self.height))
 
         # Drawing the day counter
         day_text_font = font.Font(None, 36)
@@ -23,7 +23,7 @@ class Sidebar:
 
         # Drawing the sidebar buildung options, by multiplying we calculate the vertical position of the building
         for index, building_name in enumerate(self.building_options):
-            color = (150, 150, 150) if building_name == self.selected_building else (255, 255, 255)
+            color = (34, 139, 34) if building_name == self.selected_building else (255, 165, 0)
             pane_position = (self.x + 10, self.y + 60 + index * 50, self.width - 20, 40)
             pane = Pane(screen, pane_position, color)
             pane.add_rect()

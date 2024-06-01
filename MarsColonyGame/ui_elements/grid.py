@@ -14,8 +14,10 @@ class Grid:
     def draw_grid(self, screen):
         for row in self.grid:
             for cell in row:
+                # Cell 
                 draw.rect(screen, cell.color, (cell.pos_x, cell.pos_y, self.cell_width, self.cell_height))
-                draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_width, self.cell_height), 1)  # Cell border
+                # Cell border
+                draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_width, self.cell_height), 1) 
 
     def handle_click(self, position, sidebar:Sidebar):
         x, y = position

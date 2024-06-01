@@ -54,6 +54,7 @@ def main():
                     grid.handle_click(mouse_position, sidebar)
             elif event.type == NEW_DAY_EVENT:
                 sidebar.increment_day_count()
+                
         # Fill screen black
         screen.fill((0, 0, 0))
 

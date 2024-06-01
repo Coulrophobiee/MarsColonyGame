@@ -4,7 +4,7 @@ class Cell:
         self.pos_x = pos_x
         self.pos_y = pos_y
         # Default Color is white 
-        self.color = (255, 255, 255)
+        self.color = (139, 69, 19)
         self.is_occupied = False
         self.is_powered = False
         self.is_man_powered = False
