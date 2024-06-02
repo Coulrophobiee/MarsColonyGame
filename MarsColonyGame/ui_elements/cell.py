@@ -1,8 +1,9 @@
 class Cell:
     
-    def __init__(self, pos_x, pos_y) -> None:
+    def __init__(self, pos_x, pos_y, size) -> None:
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.size = size
         # Default Color is white 
         self.color = (139, 69, 19)
         self.is_occupied = False

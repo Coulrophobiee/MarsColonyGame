@@ -13,26 +13,25 @@ def main():
     BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
 
     # Define screen dimensions
-    SCREEN_WIDTH = 1000
+    SCREEN_WIDTH = 1100
     SCREEN_HEIGHT = 600
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("GRID V1")
 
-    # Define grid dimensions and cell size
-    ROWS = 20
-    COLS = 20
-    cell_width = (SCREEN_WIDTH - 200) // COLS
-    cell_height = SCREEN_HEIGHT // ROWS 
-
-    # Create a Grid object
-    grid = Grid(ROWS, COLS, cell_width, cell_height)
-
-    # Create a Sidebar object
     SIDEBAR_WIDTH = 200
     SIDEBAR_HEIGHT = SCREEN_HEIGHT
     SIDEBAR_X_POSTION  = SCREEN_WIDTH - SIDEBAR_WIDTH
     SIDEBAR_Y_POSITION = 0
     sidebar = Sidebar(SIDEBAR_X_POSTION, SIDEBAR_Y_POSITION, SIDEBAR_WIDTH, SIDEBAR_HEIGHT, BUILDING_OPTIONS)
+
+    # Define grid dimensions and cell size
+    GRID_WIDTH = SCREEN_WIDTH - 200
+
+    # Create a Grid object
+    grid = Grid(GRID_WIDTH, SCREEN_HEIGHT)
+
+    # Create a Sidebar object
+    
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
