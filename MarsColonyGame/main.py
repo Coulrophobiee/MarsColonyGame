@@ -1,5 +1,5 @@
-from ui_elements.grid import Grid
 from ui_elements.sidebar import Sidebar
+from ui_elements.screen import Screen
 from sys import exit
 
 import pygame
@@ -11,27 +11,8 @@ def main():
 
     # List of buildings
     BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
-
-    # Define screen dimensions
-    SCREEN_WIDTH = 1100
-    SCREEN_HEIGHT = 600
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("GRID V1")
-
-    SIDEBAR_WIDTH = 200
-    SIDEBAR_HEIGHT = SCREEN_HEIGHT
-    SIDEBAR_X_POSTION  = SCREEN_WIDTH - SIDEBAR_WIDTH
-    SIDEBAR_Y_POSITION = 0
-    sidebar = Sidebar(SIDEBAR_X_POSTION, SIDEBAR_Y_POSITION, SIDEBAR_WIDTH, SIDEBAR_HEIGHT, BUILDING_OPTIONS)
-
-    # Define grid dimensions and cell size
-    GRID_WIDTH = SCREEN_WIDTH - 200
-
-    # Create a Grid object
-    grid = Grid(GRID_WIDTH, SCREEN_HEIGHT)
-
-    # Create a Sidebar object
     
+    screen = Screen(BUILDING_OPTIONS)
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
@@ -45,25 +26,17 @@ def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_position = pygame.mouse.get_pos()
-                click_location = where_is_mouse_click(mouse_position, sidebar)
+                click_location = screen.where_is_mouse_click(mouse_position)
 
                 if click_location == "sidebar":
-                    sidebar.handle_click(mouse_position)
+                    screen.sidebar.handle_click(mouse_position)
                 elif click_location == "grid":
-                    grid.handle_click(mouse_position, sidebar)
+                    screen.grid.handle_click(mouse_position, screen.sidebar)
             elif event.type == NEW_DAY_EVENT:
-                sidebar.increment_day_count()
-                
-        # Fill screen black
-        screen.fill((0, 0, 0))
+                screen.sidebar.increment_day_count()
+    	
+        screen.display()
 
-        # Draw the grid
-        grid.draw_grid(screen)
-
-        # Draw the sidebar
-        sidebar.draw_sidebar(screen)
-
-        # Update display
         pygame.display.flip()
     
     pygame.quit()
