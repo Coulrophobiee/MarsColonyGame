@@ -1,5 +1,5 @@
 from pygame import init, font, draw
-class Pane():
+class Pane:
     def __init__(self, screen, pane_position, background_color) -> None:
         init()
         self.screen = screen
@@ -7,10 +7,10 @@ class Pane():
         self.font = font.SysFont("Arial", 25)
         self.background_color = background_color
 
-    def add_rect(self):
+    def draw_rect(self):
         self.rect = draw.rect(self.screen, self.background_color, self.pane_position)
 
-    def add_text(self, text):
+    def display_text(self, text):
         text_surface = self.font.render(text, True, (0, 0, 0))
         text_rect = text_surface.get_rect(
             center=(

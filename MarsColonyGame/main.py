@@ -11,7 +11,7 @@ def main():
     pygame.init()
 
     # List of buildings
-    BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
+    BUILDING_OPTIONS = ("Solar Park", "Living Compartment", "Ore Mine", "Bio Dome")
     
     screen = Screen(BUILDING_OPTIONS)
     
@@ -37,7 +37,7 @@ def main():
                 elif click_location == "grid":
                     screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
-                screen.sidebar.increment_day_count()
+                screen.sidebar.day_counter.increment_day()
     	
         screen.display()
 
