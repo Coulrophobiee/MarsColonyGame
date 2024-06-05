@@ -1,8 +1,11 @@
-from buildings.generating_buildings import GeneratingBuildings
+from buildings.generating_building import GeneratingBuilding
 
-class Biodome:
+class Biodome(GeneratingBuilding):
     def __init__(self) -> None:
-        super().__init__()
-        self.ressource_type = "food"
+        super().__init__("food")
+
+    def generate_ressource(self):
+        return 10
+        
     
 

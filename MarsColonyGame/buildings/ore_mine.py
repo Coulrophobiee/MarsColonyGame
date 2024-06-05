@@ -1,7 +1,9 @@
-from buildings.generating_buildings import GeneratingBuildings
+from buildings.generating_building import GeneratingBuilding
 
-class Ore_mine:
+class OreMine(GeneratingBuilding):
     def __init__(self) -> None:
-        super().__init__()
-        self.ressource_type = "ore"
+        super().__init__("ore")
+
+    def generate_ressource(self):
+        return 10
     

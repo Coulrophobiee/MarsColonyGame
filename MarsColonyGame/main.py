@@ -1,5 +1,6 @@
 from ui_elements.sidebar import Sidebar
 from ui_elements.screen import Screen
+from colony import Colony
 from sys import exit
 
 import pygame
@@ -18,6 +19,9 @@ def main():
     NEW_DAY_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
 
+    # Create colony
+    colony = Colony()
+
     running = True
 
     while running:
@@ -31,23 +35,15 @@ def main():
                 if click_location == "sidebar":
                     screen.sidebar.handle_click(mouse_position)
                 elif click_location == "grid":
-                    screen.grid.handle_click(mouse_position, screen.sidebar)
+                    screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
                 screen.sidebar.increment_day_count()
     	
         screen.display()
 
         pygame.display.flip()
-    
     pygame.quit()
     exit()
-
-def where_is_mouse_click(mouse_position, sidebar:Sidebar):
-    x, _ = mouse_position
-    if sidebar.x <= x <= sidebar.x + sidebar.width:
-        return "sidebar"
-    else:
-        return "grid"
     
 if __name__ == "__main__":
     main()

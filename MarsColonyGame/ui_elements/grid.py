@@ -2,6 +2,7 @@ from ui_elements.cell import Cell
 from pygame import draw
 from ui_elements.sidebar import Sidebar
 from buildings.living_compartment import LivingCompartment
+from colony import Colony
 
 class Grid:
 
@@ -25,7 +26,7 @@ class Grid:
                 # Cell border
                 draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size), 1)
 
-    def handle_click(self, position, sidebar:Sidebar):
+    def handle_click(self, position, sidebar:Sidebar, colony:Colony):
         x, y = position
 
         # Mouse position (in pixels) divided by width of the cells equals column (x-coordinate) 
@@ -41,12 +42,17 @@ class Grid:
             # Change color to green to represent the building
             cell.change_color((0, 255, 0))
 
+            # Add building to colony
+            colony.add_building(sidebar.selected_building)
+
+            # Occupy cell with selected building
             cell.is_occupied = True
             cell.occupied_with = sidebar.selected_building
             # TODO: Show the building built via an icon/image, 
 
             # Unselect building after placement
             sidebar.selected_building = None
+
         elif sidebar.selected_building and cell.is_occupied:
             print("Cell is already occupied, you cannot build here!")
         elif sidebar.selected_building == None:
