@@ -11,8 +11,13 @@ class Sidebar:
         self.height = height
         self.building_options = building_options
         self.selected_building = None
+<<<<<<< HEAD
         self.day_counter = day_counter
         self.ressource_counter = ressource_counter
+=======
+        self.day_counter = DayCounter()
+        self.ressource_counter = RessourceCounter()
+>>>>>>> 92f4e867721282332f8d434e34198423f50b49a7
     
     def draw_sidebar(self, screen):
         

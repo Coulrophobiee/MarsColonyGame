@@ -1,4 +1,6 @@
-class Building:
+from abc import ABC, abstractmethod
+
+class Building(ABC):
     def __init__(self) -> None:
         self.building_cost = 0
         self.info_text = ""
