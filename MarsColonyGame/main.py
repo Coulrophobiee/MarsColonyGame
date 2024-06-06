@@ -1,4 +1,5 @@
-from ui_elements.sidebar import Sidebar
+from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
+from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.screen import Screen
 from colony import Colony
 from sys import exit
@@ -12,15 +13,19 @@ def main():
 
     # List of buildings
     BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
+
+    # Initialize Counter Objects
+    day_counter = DayCounter()
+    ressource_counter = RessourceCounter()
     
-    screen = Screen(BUILDING_OPTIONS)
+    screen = Screen(BUILDING_OPTIONS, ressource_counter, day_counter)
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
 
     # Create colony
-    colony = Colony()
+    colony = Colony(ressource_counter, day_counter)
 
     running = True
 
@@ -37,7 +42,8 @@ def main():
                 elif click_location == "grid":
                     screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
-                screen.sidebar.increment_day_count()
+                screen.sidebar.day_counter.increment_day()
+                colony.update_ressources()
     	
         screen.display()
 
