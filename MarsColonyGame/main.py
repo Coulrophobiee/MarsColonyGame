@@ -12,15 +12,11 @@ def main():
     pygame.init()
 
     # List of buildings
-<<<<<<< HEAD
     BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
 
     # Initialize Counter Objects
     day_counter = DayCounter()
     ressource_counter = RessourceCounter()
-=======
-    BUILDING_OPTIONS = ("Solar Park", "Living Compartment", "Ore Mine", "Bio Dome")
->>>>>>> 92f4e867721282332f8d434e34198423f50b49a7
     
     screen = Screen(BUILDING_OPTIONS, ressource_counter, day_counter)
     
@@ -47,10 +43,7 @@ def main():
                     screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
                 screen.sidebar.day_counter.increment_day()
-<<<<<<< HEAD
                 colony.update_ressources()
-=======
->>>>>>> 92f4e867721282332f8d434e34198423f50b49a7
     	
         screen.display()
 
