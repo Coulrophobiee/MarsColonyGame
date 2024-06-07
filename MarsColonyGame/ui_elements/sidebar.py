@@ -45,7 +45,11 @@ class Sidebar:
             #draw.rect(screen, color, (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40))
 
             # TODO: add icon or text specific for each building
+        
+        # Initialize ConsoleLog
         log = ConsoleLog(screen, self.x, self.y, self.width)
+        log.add_text("BITTTEEE")
+
         
 
     

@@ -1,10 +1,10 @@
 from pygame import init, font, draw
 class Pane:
-    def __init__(self, screen, pane_position, background_color) -> None:
+    def __init__(self, screen, pane_position, background_color, font_size=20) -> None:
         init()
         self.screen = screen
         self.pane_position = pane_position
-        self.font = font.SysFont("Arial", 20)
+        self.font = font.SysFont("Arial", font_size)
         self.background_color = background_color
 
     def draw_rect(self):
@@ -20,5 +20,11 @@ class Pane:
                 )
             )
             self.screen.blit(text_surface, text_rect)
-            return
-        self.screen.blit(text_surface)
+        else:
+            text_rect = text_surface.get_rect(
+                topleft=(
+                    self.pane_position[0],
+                    self.pane_position[1]
+                )
+            )
+            self.screen.blit(text_surface, text_rect)
