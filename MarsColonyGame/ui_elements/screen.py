@@ -21,7 +21,6 @@ class Screen:
 
         self.sidebar = Sidebar(SIDEBAR_X_POSITION, SIDEBAR_Y_POSITION, SIDEBAR_WIDTH, SIDEBAR_HEIGHT, BUILDING_OPTION, day_counter, ressource_counter)
         self.grid = Grid(AVAIABLE_GRID_WIDTH, AVAIABLE_GRID_HEIHGT)
-        pass
 
     def display(self):
         self.sidebar.draw_sidebar(self.screen)

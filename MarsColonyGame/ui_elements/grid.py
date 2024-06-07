@@ -39,15 +39,21 @@ class Grid:
         if sidebar.selected_building and not cell.is_occupied:
             # TODO: instead of changing color - place selected building
 
-            # Change color to green to represent the building
-            cell.change_color((0, 255, 0))
+            
+            
 
-            # Add building to colony
-            colony.add_building(sidebar.selected_building)
+            # Add building to colony if enough ressources
+            if not colony.add_building(sidebar.selected_building, row, col):
+                print(f"Not enough ressources for {sidebar.selected_building}")
+            else:
+                # Change color to green to represent the building
+                cell.change_color((0, 255, 0))
+                
+                # Occupy cell with selected building
+                cell.is_occupied = True
+                cell.occupied_with = sidebar.selected_building
 
-            # Occupy cell with selected building
-            cell.is_occupied = True
-            cell.occupied_with = sidebar.selected_building
+            
             # TODO: Show the building built via an icon/image, 
 
             # Unselect building after placement

@@ -3,7 +3,7 @@ from buildings.radius_building import RadiusBuilding
 class LivingCompartment(RadiusBuilding):
     def __init__(self, x_position, y_position) -> None:
         super().__init__(x_position, y_position)
-        self.building_cost = 10 #?
+        self.metal_cost = 2 #?
         self.icon_path = ""
         self.info_text = ""
         self.needs_energy = False

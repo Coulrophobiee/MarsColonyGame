@@ -12,7 +12,7 @@ def main():
     pygame.init()
 
     # List of buildings
-    BUILDING_OPTIONS = ("Solar Panel", "Living Compartment", "Ore Mine", "Bio Dome")
+    BUILDING_OPTIONS = ("Solar Park", "Living Compartment", "Ore Mine", "Bio Dome")
 
     # Initialize Counter Objects
     day_counter = DayCounter()

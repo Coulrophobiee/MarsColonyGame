@@ -2,6 +2,7 @@ from pygame import draw, Rect, font
 from utils.pane import Pane
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
+from ui_elements.console_log import ConsoleLog
 
 class Sidebar:
     def __init__(self, x, y, width, height, building_options, day_counter:DayCounter, ressource_counter:RessourceCounter) -> None:
@@ -22,7 +23,7 @@ class Sidebar:
         day_counter_position = (self.x + 10, self.y + 10, self.width - 20, 40)
         day_counter_pane = Pane(screen, day_counter_position, self.day_counter.background_color)
         day_counter_pane.draw_rect()
-        day_counter_pane.display_text(f"Day: {self.day_counter.days_passed}")
+        day_counter_pane.display_text(f"Day: {self.day_counter.days_passed}", True)
 
         ressources = list(filter(lambda a: not a.startswith("__") and not callable(getattr(self.ressource_counter, a)), dir(self.ressource_counter)))
 
@@ -32,7 +33,7 @@ class Sidebar:
             ressource_counter_pane.draw_rect()
             ressource_count = getattr(self.ressource_counter, ressource)
             ressource = self.ressource_counter.get_name_of_ressource(ressource)
-            ressource_counter_pane.display_text(f"{ressource}: {ressource_count}")
+            ressource_counter_pane.display_text(f"{ressource}: {ressource_count}", True)
             
         # Drawing the sidebar buildung options, by multiplying we calculate the vertical position of the building
         for index, building_name in enumerate(self.building_options):
@@ -40,10 +41,13 @@ class Sidebar:
             pane_position = (self.x + 10, self.y + 260 + index * 50, self.width - 20, 40)
             pane = Pane(screen, pane_position, color)
             pane.draw_rect()
-            pane.display_text(building_name)
+            pane.display_text(building_name, True)
             #draw.rect(screen, color, (self.x + 10, self.y + 10 + index * 50, self.width - 20, 40))
 
             # TODO: add icon or text specific for each building
+        log = ConsoleLog(screen, self.x, self.y, self.width)
+        
+
     
     def handle_click(self, position):
         # return False
