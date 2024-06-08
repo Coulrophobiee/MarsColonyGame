@@ -1,5 +1,4 @@
 from ui_elements.cell import Cell
-from pygame import draw
 from ui_elements.sidebar import Sidebar
 #from colony import Colony
 
@@ -20,11 +19,7 @@ class Grid:
     def draw_grid(self, screen):
         for row in self.grid:
             for cell in row:
-                # # Cell
-                # draw.rect(screen, cell.color, (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size))
-                # # Cell border
-                # draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size), 1)
-                cell.draw_icon(screen)
+                cell.draw(screen)
 
     def handle_click(self, position, sidebar:Sidebar, colony):
         x, y = position
@@ -45,9 +40,6 @@ class Grid:
                 # Occupy cell with selected building
                 cell.is_occupied = True
                 cell.occupied_with = sidebar.selected_building
-
-            
-            # TODO: Show the building built via an icon/image, 
 
             # Unselect building after placement
             sidebar.selected_building = None

@@ -20,10 +20,10 @@ class Colony:
         self.placed_generating_buildings = []
         self.placed_non_generating_buildings = []
 
-        self.solar_panel_icon = self.load_and_scale_icons("MarsColonyGame\icons\solar-panel.png")
-        self.living_compartment_icon = self.load_and_scale_icons("MarsColonyGame\icons\living_compartment.png")
+        self.solar_panel_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\solar-panel.png")
+        self.living_compartment_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\living_compartment.png")
         self.bio_dome_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\bio-dome.png")
-        self.ore_mine_icon = self.load_and_scale_icons("MarsColonyGame\icons\ore-mine.png")
+        self.ore_mine_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\ore-mine.png")
 
     def load_and_scale_icons(self, filename):
         icon = image.load(filename)
@@ -54,6 +54,7 @@ class Colony:
         elif building_name == "Living Compartment":
             new_living_compartment = LivingCompartment(self.grid, row, col)
             if new_living_compartment.metal_cost < self.ressource_counter.metal_count:
+                self.ressource_counter.inhabitants_count += new_living_compartment.living_space
                 self.placed_non_generating_buildings.append(new_living_compartment)
                 self.ressource_counter.metal_count -= new_living_compartment.metal_cost
                 cell.set_icon(self.living_compartment_icon)

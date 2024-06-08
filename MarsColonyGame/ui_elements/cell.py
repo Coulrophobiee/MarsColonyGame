@@ -23,7 +23,7 @@ class Cell:
     def set_icon(self, icon):
         self.icon = icon
 
-    def draw_icon(self, screen):
+    def draw(self, screen):
         draw.rect(screen, self.color, (self.pos_x, self.pos_y, self.size, self.size))
         if self.icon:
             screen.blit(self.icon, (self.pos_x, self.pos_y))
