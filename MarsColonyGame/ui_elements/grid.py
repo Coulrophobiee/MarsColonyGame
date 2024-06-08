@@ -1,8 +1,7 @@
 from ui_elements.cell import Cell
 from pygame import draw
 from ui_elements.sidebar import Sidebar
-from buildings.living_compartment import LivingCompartment
-from colony import Colony
+#from colony import Colony
 
 class Grid:
 
@@ -21,12 +20,13 @@ class Grid:
     def draw_grid(self, screen):
         for row in self.grid:
             for cell in row:
-                # Cell
-                draw.rect(screen, cell.color, (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size))
-                # Cell border
-                draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size), 1)
+                # # Cell
+                # draw.rect(screen, cell.color, (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size))
+                # # Cell border
+                # draw.rect(screen, (0, 0, 0), (cell.pos_x, cell.pos_y, self.cell_size, self.cell_size), 1)
+                cell.draw_icon(screen)
 
-    def handle_click(self, position, sidebar:Sidebar, colony:Colony):
+    def handle_click(self, position, sidebar:Sidebar, colony):
         x, y = position
 
         # Mouse position (in pixels) divided by width of the cells equals column (x-coordinate) 
@@ -37,18 +37,11 @@ class Grid:
         # Cell is the corresponding cell object at the grid position (initialized in the grid)
         cell = self.grid[row][col]
         if sidebar.selected_building and not cell.is_occupied:
-            # TODO: instead of changing color - place selected building
-
-            
-            
 
             # Add building to colony if enough ressources
-            if not colony.add_building(sidebar.selected_building, row, col):
+            if not colony.add_building(sidebar.selected_building, row, col, cell):
                 print(f"Not enough ressources for {sidebar.selected_building}")
             else:
-                # Change color to green to represent the building
-                cell.change_color((0, 255, 0))
-                
                 # Occupy cell with selected building
                 cell.is_occupied = True
                 cell.occupied_with = sidebar.selected_building
@@ -64,13 +57,3 @@ class Grid:
         elif sidebar.selected_building == None:
             cell.show_info()
     
-    def place_building(self, selected_building:str):
-        if selected_building == "Living Compartment":
-            living_compartment = LivingCompartment()
-            living_compartment.alter_cell_state()
-        elif selected_building == "Solar Panel":
-            pass
-        elif selected_building == "Ore Mine":
-            pass
-        elif selected_building == "Bio Dome":
-            pass

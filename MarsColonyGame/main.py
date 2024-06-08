@@ -22,10 +22,10 @@ def main():
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
-    pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
+    pygame.time.set_timer(NEW_DAY_EVENT, 20_00)
 
     # Create colony
-    colony = Colony(ressource_counter, day_counter)
+    colony = Colony(ressource_counter, day_counter, screen.grid)
 
     running = True
 

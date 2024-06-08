@@ -1,8 +1,8 @@
 from buildings.radius_building import RadiusBuilding
 
 class LivingCompartment(RadiusBuilding):
-    def __init__(self, x_position, y_position) -> None:
-        super().__init__(x_position, y_position)
+    def __init__(self, grid, x_position, y_position) -> None:
+        super().__init__(grid, x_position, y_position)
         self.metal_cost = 2 #?
         self.icon_path = ""
         self.info_text = ""
@@ -12,9 +12,8 @@ class LivingCompartment(RadiusBuilding):
 
         self.living_space = 10
         self.radius = 3
-        
-    def alter_cell_state(self):
-        return super().alter_cell_state()
 
+    def update_cell_state_in_radius(self):
+        return super().update_cell_state_in_radius(self.provides)
     def show_info(self):
         return super().show_info()
