@@ -18,10 +18,19 @@ class RadiusBuilding(Building):
                 for col in range(self.grid.cols):
                     euclidean_distance = sqrt((self.x_position - row) ** 2 + (self.y_position - col) ** 2)
                     if euclidean_distance <= self.radius:
-                        self.grid.grid[row][col].set_is_powered(True)
+                        cell = self.grid.grid[row][col]
+                        cell.set_is_powered(True)
+                        if cell.is_occupied:
+                            building = cell.occupied_with
+                            building.is_powered =  True
         elif power_type == "manpower":
             for row in range(self.grid.rows):
                 for col in range(self.grid.cols):
                     euclidean_distance = sqrt((self.x_position - row) ** 2 + (self.y_position - col) ** 2)
                     if euclidean_distance <= self.radius:
-                        self.grid.grid[row][col].set_is_man_powered(True)
+                        cell = self.grid.grid[row][col]
+                        cell.set_is_man_powered(True)
+                        if cell.is_occupied:
+                            building = cell.occupied_with
+                            building.is_man_powered =  True
+

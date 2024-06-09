@@ -37,9 +37,8 @@ class Grid:
             if not colony.add_building(sidebar.selected_building, row, col, cell):
                 print(f"Not enough ressources for {sidebar.selected_building}")
             else:
-                # Occupy cell with selected building
+                # Occupy cell 
                 cell.is_occupied = True
-                cell.occupied_with = sidebar.selected_building
 
             # Unselect building after placement
             sidebar.selected_building = None

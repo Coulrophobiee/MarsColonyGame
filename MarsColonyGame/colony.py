@@ -5,7 +5,6 @@ from buildings.solar_park import SolarPark
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.grid import Grid
-from ui_elements.cell import Cell
 
 from pygame import transform, image
 
@@ -31,10 +30,11 @@ class Colony:
     
     def update_ressources(self):
         for building in self.placed_generating_buildings:
-            if building.ressource_type == "food":
-                self.ressource_counter.food_count += self.ressource_counter.produce_food()
-            elif building.ressource_type == "metal":
-                self.ressource_counter.metal_count += self.ressource_counter.produce_metal()
+            if building.is_powered and building.is_man_powered:
+                if building.ressource_type == "food":
+                    self.ressource_counter.food_count += self.ressource_counter.produce_food()
+                elif building.ressource_type == "metal":
+                    self.ressource_counter.metal_count += self.ressource_counter.produce_metal()
 
     def add_building(self, building_name, row, col, cell):
         if building_name == "Ore Mine":
@@ -43,6 +43,11 @@ class Colony:
                 self.placed_generating_buildings.append(new_ore_mine)
                 self.ressource_counter.metal_count -= new_ore_mine.metal_cost
                 cell.set_icon(self.ore_mine_icon)
+                cell.occupied_with = new_ore_mine
+                if cell.is_powered:
+                    new_ore_mine.info_text = True
+                if cell.is_manpowered:
+                    new_ore_mine.is_man_powered = True
                 return True
         elif building_name == "Bio Dome":
             new_biodome = Biodome()
@@ -50,6 +55,11 @@ class Colony:
                 self.placed_generating_buildings.append(new_biodome)
                 self.ressource_counter.metal_count -= new_biodome.metal_cost
                 cell.set_icon(self.bio_dome_icon)
+                cell.occupied_with = new_biodome
+                if cell.is_powered:
+                    new_biodome.is_powered = True
+                if cell.is_manpowered:
+                    new_biodome.is_man_powered = True
                 return True
         elif building_name == "Living Compartment":
             new_living_compartment = LivingCompartment(self.grid, row, col)
@@ -58,6 +68,7 @@ class Colony:
                 self.placed_non_generating_buildings.append(new_living_compartment)
                 self.ressource_counter.metal_count -= new_living_compartment.metal_cost
                 cell.set_icon(self.living_compartment_icon)
+                cell.occupied_with = new_living_compartment
                 new_living_compartment.update_cell_state_in_radius()
                 return True
         elif building_name == "Solar Park":
@@ -66,6 +77,7 @@ class Colony:
                 self.placed_non_generating_buildings.append(new_solar_park)
                 self.ressource_counter.metal_count -= new_solar_park.metal_cost
                 cell.set_icon(self.solar_panel_icon)
+                cell.occupied_with = new_solar_park
                 new_solar_park.update_cell_state_in_radius()
                 return True
         return False
