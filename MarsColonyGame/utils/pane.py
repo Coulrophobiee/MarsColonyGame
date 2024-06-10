@@ -7,11 +7,16 @@ class Pane:
         self.font = font.SysFont("Arial", font_size)
         self.background_color = background_color
 
+        self.rect_outline = None
+
     def draw_rect(self):
         self.rect = draw.rect(self.screen, self.background_color, self.pane_position)
 
-    def display_text(self, text, centered):
-        text_surface = self.font.render(text, True, (0, 0, 0))
+    def draw_rect_outline(self, foreground_color=(255, 255, 255)):
+        self.rect_outline = draw.rect(self.screen, foreground_color, self.pane_position, 1)
+
+    def display_text(self, text, centered, foreground_color=(0, 0, 0)):
+        text_surface = self.font.render(text, True, foreground_color)
         if centered:
             text_rect = text_surface.get_rect(
                 center=(

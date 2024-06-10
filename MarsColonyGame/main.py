@@ -1,6 +1,7 @@
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.screen import Screen
+from ui_elements.console_log import ConsoleLog
 from colony import Colony
 from sys import exit
 
@@ -17,8 +18,10 @@ def main():
     # Initialize Counter Objects
     day_counter = DayCounter()
     ressource_counter = RessourceCounter()
-    
-    screen = Screen(BUILDING_OPTIONS, ressource_counter, day_counter)
+
+    # Initialize Log
+    log = ConsoleLog()
+    screen = Screen(BUILDING_OPTIONS, ressource_counter, day_counter, log)
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1

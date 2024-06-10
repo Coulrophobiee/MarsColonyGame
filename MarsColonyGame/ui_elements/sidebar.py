@@ -5,7 +5,7 @@ from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.console_log import ConsoleLog
 
 class Sidebar:
-    def __init__(self, x, y, width, height, building_options, day_counter:DayCounter, ressource_counter:RessourceCounter) -> None:
+    def __init__(self, x, y, width, height, building_options, day_counter:DayCounter, ressource_counter:RessourceCounter, log: ConsoleLog) -> None:
         self.x = x
         self.y = y
         self.width = width
@@ -14,6 +14,7 @@ class Sidebar:
         self.selected_building = None
         self.day_counter = day_counter
         self.ressource_counter = ressource_counter
+        self.log = log
     
     def draw_sidebar(self, screen):
         
@@ -46,12 +47,8 @@ class Sidebar:
 
             # TODO: add icon or text specific for each building
         
-        # Initialize ConsoleLog
-        log = ConsoleLog(screen, self.x, self.y, self.width)
-        log.add_text("BITTTEEE")
-
-        
-
+        # Draw Log
+        self.log.draw_log(screen, self.x, self.y, self.width)
     
     def handle_click(self, position):
         # return False

@@ -45,7 +45,7 @@ class Colony:
                 cell.set_icon(self.ore_mine_icon)
                 cell.occupied_with = new_ore_mine
                 if cell.is_powered:
-                    new_ore_mine.info_text = True
+                    new_ore_mine.is_powered = True
                 if cell.is_manpowered:
                     new_ore_mine.is_man_powered = True
                 return True

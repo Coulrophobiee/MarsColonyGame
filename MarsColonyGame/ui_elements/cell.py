@@ -33,7 +33,7 @@ class Cell:
         self.color = (139, 69, 19)
 
     def show_info(self):
-        print(f"Is occupied: {self.is_occupied}, is occupied with: {self.occupied_with}, is powered: {self.is_powered}, is manpowered: {self.is_manpowered}")
+        return f"\nIs occupied: {self.is_occupied}\n is occupied with: {self.occupied_with}, is powered: {self.is_powered}, is manpowered: {self.is_manpowered}"
 
     def set_is_powered(self, powered):
         self.is_powered = powered
