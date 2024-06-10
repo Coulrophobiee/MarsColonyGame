@@ -29,6 +29,7 @@ def main():
 
     # Create colony
     colony = Colony(ressource_counter, day_counter, screen.grid)
+    colony.spawn_starting_buildings()
 
     running = True
 
@@ -46,7 +47,14 @@ def main():
                     screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
                 screen.sidebar.day_counter.increment_day()
-                colony.update_ressources()
+                colony.generate_ressources()
+                colony.consume_food()
+                if not colony.check_loss():
+                    print("LOST")
+                    running = False
+                elif colony.check_win():
+                    print("WON")
+                    running = False
     	
         screen.display()
 

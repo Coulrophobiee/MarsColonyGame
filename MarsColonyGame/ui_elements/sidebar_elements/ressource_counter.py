@@ -2,7 +2,7 @@ class RessourceCounter:
     def __init__(self) -> None:
         self.inhabitants_count = 0
         self.metal_count = 10
-        self.food_count = 0
+        self.food_count = 50
 
     def get_name_of_ressource(self, ressource):
         if ressource == "inhabitants_count":

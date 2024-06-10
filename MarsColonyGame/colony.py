@@ -24,22 +24,32 @@ class Colony:
         self.bio_dome_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\bio-dome.png")
         self.ore_mine_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\ore-mine.png")
 
+    def spawn_starting_buildings(self):
+        self.add_building("Ore Mine", 10, 10, self.grid.grid[10][10])
+        self.grid.grid[10][10].is_occupied = True
+        self.add_building("Living Compartment", 11, 11, self.grid.grid[11][11])
+        self.grid.grid[11][11].is_occupied = True
+        self.add_building("Solar Park", 12, 12, self.grid.grid[12][12])
+        self.grid.grid[12][12].is_occupied = True
     def load_and_scale_icons(self, filename):
         icon = image.load(filename)
         return transform.scale(icon, (self.grid.cell_size, self.grid.cell_size))
     
-    def update_ressources(self):
+    def generate_ressources(self):
         for building in self.placed_generating_buildings:
             if building.is_powered and building.is_man_powered:
                 if building.ressource_type == "food":
                     self.ressource_counter.food_count += self.ressource_counter.produce_food()
                 elif building.ressource_type == "metal":
                     self.ressource_counter.metal_count += self.ressource_counter.produce_metal()
+    
+    def consume_food(self):
+        self.ressource_counter.food_count -= self.ressource_counter.inhabitants_count
 
     def add_building(self, building_name, row, col, cell):
         if building_name == "Ore Mine":
             new_ore_mine = OreMine()
-            if new_ore_mine.metal_cost < self.ressource_counter.metal_count: 
+            if new_ore_mine.metal_cost <= self.ressource_counter.metal_count: 
                 self.placed_generating_buildings.append(new_ore_mine)
                 self.ressource_counter.metal_count -= new_ore_mine.metal_cost
                 cell.set_icon(self.ore_mine_icon)
@@ -51,7 +61,7 @@ class Colony:
                 return True
         elif building_name == "Bio Dome":
             new_biodome = Biodome()
-            if new_biodome.metal_cost < self.ressource_counter.metal_count:
+            if new_biodome.metal_cost <= self.ressource_counter.metal_count:
                 self.placed_generating_buildings.append(new_biodome)
                 self.ressource_counter.metal_count -= new_biodome.metal_cost
                 cell.set_icon(self.bio_dome_icon)
@@ -63,7 +73,7 @@ class Colony:
                 return True
         elif building_name == "Living Compartment":
             new_living_compartment = LivingCompartment(self.grid, row, col)
-            if new_living_compartment.metal_cost < self.ressource_counter.metal_count:
+            if new_living_compartment.metal_cost <= self.ressource_counter.metal_count:
                 self.ressource_counter.inhabitants_count += new_living_compartment.living_space
                 self.placed_non_generating_buildings.append(new_living_compartment)
                 self.ressource_counter.metal_count -= new_living_compartment.metal_cost
@@ -73,7 +83,7 @@ class Colony:
                 return True
         elif building_name == "Solar Park":
             new_solar_park = SolarPark(self.grid, row, col)
-            if new_solar_park.metal_cost < self.ressource_counter.metal_count:
+            if new_solar_park.metal_cost <= self.ressource_counter.metal_count:
                 self.placed_non_generating_buildings.append(new_solar_park)
                 self.ressource_counter.metal_count -= new_solar_park.metal_cost
                 cell.set_icon(self.solar_panel_icon)
