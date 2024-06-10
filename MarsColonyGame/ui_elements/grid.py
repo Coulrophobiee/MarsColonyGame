@@ -44,7 +44,7 @@ class Grid:
             sidebar.selected_building = None
 
         elif sidebar.selected_building and cell.is_occupied:
-            sidebar.log.add_text("Cell is already occupied, you cannot build here!")
+            sidebar.log.add_text("Cell is occupied, you can't build here!")
         elif sidebar.selected_building == None:
             sidebar.log.add_text(cell.show_info())
     

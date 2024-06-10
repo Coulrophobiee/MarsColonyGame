@@ -4,6 +4,7 @@ class Biodome(GeneratingBuilding):
     def __init__(self) -> None:
         super().__init__("food")
         self.metal_cost = 2
+        self.building_name = "Bio Dome"
 
     def generate_ressource(self):
         return 10

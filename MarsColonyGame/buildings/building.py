@@ -6,6 +6,7 @@ class Building(ABC):
         self.info_text = ""
         self.icon_path = ""
         self.needs_energy = True
+        self.building_name = ""
 
     def show_info(self):
         return self.info_text

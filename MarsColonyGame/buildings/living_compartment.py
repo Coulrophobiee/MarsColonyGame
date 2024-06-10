@@ -7,6 +7,7 @@ class LivingCompartment(RadiusBuilding):
         self.icon_path = ""
         self.info_text = ""
         self.needs_energy = False
+        self.building_name = "Living Compartment"
 
         self.provides = "manpower"
 

@@ -5,6 +5,7 @@ class OreMine(GeneratingBuilding):
         super().__init__("metal")
         self.metal_cost = 2
         self.is_powered = False
+        self.building_name = "Ore Mine"
 
     def generate_ressource(self):
         return 10

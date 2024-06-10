@@ -6,6 +6,7 @@ class SolarPark(RadiusBuilding):
         self.metal_cost = 2
         self.radius = 5
         self.provides = "energy"
+        self.building_name = "Solar Park"
 
     def update_cell_state_in_radius(self):
         return super().update_cell_state_in_radius(self.provides)
