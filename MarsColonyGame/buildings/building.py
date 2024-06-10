@@ -1,13 +1,26 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 
 class Building(ABC):
-    def __init__(self) -> None:
-        self.metal_cost = 0
-        self.info_text = ""
-        self.icon_path = ""
-        self.needs_energy = True
-        self.building_name = ""
+    """
+    Abstract base class representing a generic building in the MarsColony game.
+    """
 
-    def show_info(self):
+    def __init__(self) -> None:
+        """
+        Initialize a Building object with default attributes.
+        """
+        self.metal_cost: int = 0
+        self.info_text: str = ""
+        self.icon_path: str = "" 
+        self.needs_energy: bool = True
+        self.building_name: str = ""
+
+    def show_info(self) -> str:
+        """
+        Return the information text of the building.
+
+        Returns:
+            str: Information text about the building.
+        """
         return self.info_text
     

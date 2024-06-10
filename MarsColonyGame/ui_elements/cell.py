@@ -1,52 +1,108 @@
 from threading import Thread
 from time import sleep
-from pygame import draw
+from typing import Any, Optional
+from pygame import draw, Surface
 
 class Cell:
-    
-    def __init__(self, pos_x, pos_y, size) -> None:
-        self.pos_x = pos_x
-        self.pos_y = pos_y
-        self.size = size
+    """
+    Represents a cell in the grid of the MarsColony game.
+    """
 
-        self.color = (139, 69, 19)
-        self.is_occupied = False
-        self.is_powered = False
-        self.is_manpowered = False
-        self.occupied_with = None
+    def __init__(self, pos_x: int, pos_y: int, size: int) -> None:
+        """
+        Initialize a Cell object.
 
-        self.icon = None
+        Args:
+            pos_x (int): The x-coordinate of the cell's top-left corner.
+            pos_y (int): The y-coordinate of the cell's top-left corner.
+            size (int): The size (width and height) of the cell.
+        """
+        self.pos_x: int = pos_x
+        self.pos_y: int = pos_y
+        self.size: int = size
 
-    def change_color(self, color):
+        self.color: tuple = (139, 69, 19)
+        self.is_occupied: bool = False
+        self.is_powered: bool = False
+        self.is_manpowered: bool = False
+        self.occupied_with: Any = None
+
+        self.icon: Optional[Surface] = None
+
+    def change_color(self, color: tuple) -> None:
+        """
+        Change the color of the cell.
+
+        Args:
+            color (tuple): The new color of the cell.
+        """
         self.color = color
 
-    def set_icon(self, icon):
+    def set_icon(self, icon: Optional[Surface]) -> None:
+        """
+        Set the icon for the cell.
+
+        Args:
+            icon (Optional[Surface]): The icon to be displayed on the cell.
+        """
         self.icon = icon
 
-    def draw(self, screen):
+    def draw(self, screen: Surface) -> None:
+        """
+        Draw the cell on the screen.
+
+        Args:
+            screen (Surface): The surface to draw the cell on.
+        """
         draw.rect(screen, self.color, (self.pos_x, self.pos_y, self.size, self.size))
         if self.icon:
             screen.blit(self.icon, (self.pos_x, self.pos_y))
         draw.rect(screen, (0, 0, 0), (self.pos_x, self.pos_y, self.size, self.size), 1)
-    
-    def reset_color(self):
+
+    def reset_color(self) -> None:
+        """Reset the color of the cell."""
         self.color = (139, 69, 19)
 
-    def show_info(self):
-        if self.occupied_with != None:
+    def show_info(self) -> str:
+        """
+        Get a string containing information about the cell.
+
+        Returns:
+            str: A string containing information about the cell.
+        """
+        if self.occupied_with:
             return f"Is occupied: {self.is_occupied}\nwith: {self.occupied_with.building_name}\nis powered: {self.is_powered}\nis manpowered: {self.is_manpowered}"
         else:
             return f"Is occupied: {self.is_occupied}\nis powered: {self.is_powered}\nis manpowered: {self.is_manpowered}"
-    def set_is_powered(self, powered):
+
+    def set_is_powered(self, powered: bool) -> None:
+        """
+        Set the powered state of the cell.
+
+        Args:
+            powered (bool): The new powered state of the cell.
+        """
         self.is_powered = powered
         self.color = (100, 100, 100)
         Thread(target=self._reset_color_after_delay, args=(2, )).start()
 
-    def set_is_man_powered(self, manpowered):
+    def set_is_man_powered(self, manpowered: bool) -> None:
+        """
+        Set the man-powered state of the cell.
+
+        Args:
+            manpowered (bool): The new man-powered state of the cell.
+        """
         self.is_manpowered = manpowered
         self.color = (150, 150, 150)
         Thread(target=self._reset_color_after_delay, args=(2, )).start()
 
-    def _reset_color_after_delay(self, delay):
+    def _reset_color_after_delay(self, delay: float) -> None:
+        """
+        Reset the color of the cell after a delay.
+
+        Args:
+            delay (float): The delay (in seconds) before resetting the color.
+        """
         sleep(delay)
         self.reset_color()

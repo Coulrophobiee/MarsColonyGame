@@ -1,7 +1,5 @@
 from buildings.building import Building
-#from ui_elements.grid import Grid
 from math import sqrt
-from ui_elements.grid import Grid
 from ui_elements.cell import Cell
 
 class RadiusBuilding(Building):
@@ -16,7 +14,7 @@ class RadiusBuilding(Building):
         provides (str): The type of resource the building provides.
     """
 
-    def __init__(self, grid: 'Grid', x_position: int, y_position: int) -> None:
+    def __init__(self, grid, x_position: int, y_position: int) -> None:
         """
         Initializes a RadiusBuilding instance.
 
@@ -26,7 +24,7 @@ class RadiusBuilding(Building):
             y_position (int): The y-coordinate position of the building on the grid.
         """
         super().__init__()
-        self.grid: Grid = grid
+        self.grid = grid
         self.radius: int = 5
         self.x_position: int = x_position
         self.y_position: int = y_position

@@ -47,12 +47,13 @@ def main():
                     screen.grid.handle_click(mouse_position, screen.sidebar, colony)
             elif event.type == NEW_DAY_EVENT:
                 screen.sidebar.day_counter.increment_day()
+                screen.sidebar.log.add_text(f"Day {screen.sidebar.day_counter.days_passed} has begun!")
                 colony.generate_ressources()
                 colony.consume_food()
-                if not colony.check_loss():
+                if colony.has_failed():
                     print("LOST")
                     running = False
-                elif colony.check_win():
+                elif colony.has_succeded():
                     print("WON")
                     running = False
     	
