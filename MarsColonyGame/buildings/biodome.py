@@ -11,8 +11,8 @@ class Biodome(GeneratingBuilding):
         Initialize a Biodome object with default attributes.
         """
         super().__init__("food")
-        self.metal_cost: int = 2  # Cost in metal to build the Bio Dome
-        self.building_name: str = "Bio Dome"  # Name of the building
+        self.metal_cost: int = 2
+        self.building_name: str = "Bio Dome"
 
     def generate_ressource(self) -> int:
         """

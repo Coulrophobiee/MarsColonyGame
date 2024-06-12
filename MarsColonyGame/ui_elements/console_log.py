@@ -24,7 +24,7 @@ class ConsoleLog:
 
     def draw_log(self, screen, x_position: int, y_position: int, sidebar_width: int) -> None:
         """
-        Draw the console log on the screen.
+        Draw the console log on the sidebar.
 
         Args:
             screen (Surface): The surface to draw the log on.

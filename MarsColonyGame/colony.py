@@ -61,9 +61,9 @@ class Colony:
         for building in self.placed_generating_buildings:
             if building.is_powered and building.is_man_powered:
                 if building.ressource_type == "food":
-                    self.ressource_counter.food_count += self.ressource_counter.produce_food()
+                    self.ressource_counter.food_count += building.generate_ressource()
                 elif building.ressource_type == "metal":
-                    self.ressource_counter.metal_count += self.ressource_counter.produce_metal()
+                    self.ressource_counter.metal_count += building.generate_ressource()
 
     def consume_food(self) -> None:
         """
