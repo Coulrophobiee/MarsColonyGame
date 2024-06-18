@@ -1,4 +1,5 @@
 from buildings.radius_building import RadiusBuilding
+from pygame import image
 
 class SolarPark(RadiusBuilding):
     """
@@ -16,6 +17,7 @@ class SolarPark(RadiusBuilding):
             y_position (int): The y-coordinate of the building's position.
         """
         super().__init__(grid, x_position, y_position)
+        self.icon_path: str = r"MarsColonyGame\icons\solar-panel.png"
         self.metal_cost: int = 2
         self.radius: int = 5
         self.provides: str = "energy"

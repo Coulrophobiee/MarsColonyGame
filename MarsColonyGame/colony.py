@@ -4,6 +4,7 @@ from buildings.living_compartment import LivingCompartment
 from buildings.solar_park import SolarPark
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
+from utils.icon_manager import IconManager
 from pygame import transform, image
 
 
@@ -24,11 +25,6 @@ class Colony:
         self.grid = grid
         self.placed_generating_buildings = []
         self.placed_non_generating_buildings = []
-
-        self.solar_panel_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\solar-panel.png")
-        self.living_compartment_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\living_compartment.png")
-        self.bio_dome_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\bio-dome.png")
-        self.ore_mine_icon = self.load_and_scale_icons(r"MarsColonyGame\icons\ore-mine.png")
 
     def spawn_starting_buildings(self) -> None:
         """
@@ -59,7 +55,7 @@ class Colony:
         Generate resources for the colony.
         """
         for building in self.placed_generating_buildings:
-            if building.is_powered and building.is_man_powered:
+            if building.built_on.is_powered and building.built_on.is_manpowered:
                 if building.ressource_type == "food":
                     self.ressource_counter.food_count += building.generate_ressource()
                 elif building.ressource_type == "metal":
@@ -86,14 +82,14 @@ class Colony:
         """
         # Define a mapping of building names to their corresponding classes and icons
         building_info = {
-            "Ore Mine": (OreMine, self.ore_mine_icon, self.placed_generating_buildings),
-            "Bio Dome": (Biodome, self.bio_dome_icon, self.placed_generating_buildings),
-            "Living Compartment": (LivingCompartment, self.living_compartment_icon, self.placed_non_generating_buildings),
-            "Solar Park": (SolarPark, self.solar_panel_icon, self.placed_non_generating_buildings),
+            "Ore Mine": (OreMine, self.placed_generating_buildings),
+            "Bio Dome": (Biodome, self.placed_generating_buildings),
+            "Living Compartment": (LivingCompartment,  self.placed_non_generating_buildings),
+            "Solar Park": (SolarPark, self.placed_non_generating_buildings),
         }
 
         if building_name in building_info:
-            building_class, icon, building_list = building_info[building_name]
+            building_class,  building_list = building_info[building_name]
 
             # Create a new building instance
             if building_name in ["Living Compartment", "Solar Park"]:
@@ -110,7 +106,11 @@ class Colony:
                 building_list.append(new_building)
                 
                 # Set icon and occupy the cell
-                cell.set_icon(icon)
+                new_building.built_on = cell
+                icon = IconManager(cell.size, new_building.icon_path)
+                new_building.icon = icon.get_scaled_icon()
+                #icon = getattr(building_class, 'icon', None)
+                cell.set_icon(new_building.icon)
                 cell.occupied_with = new_building
 
                 # Update building's powered state based on the cell's state

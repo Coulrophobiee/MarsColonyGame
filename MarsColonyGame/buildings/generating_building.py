@@ -17,8 +17,8 @@ class GeneratingBuilding(Building, ABC):
         super().__init__()
         self.ressource_type: str = resource_type
         self.needs_manpower: bool = True 
-        self.is_powered: bool = False 
-        self.is_man_powered: bool = False  
+        #self.is_powered: bool = False 
+        #self.is_man_powered: bool = False  
 
     @abstractmethod
     def generate_ressource(self) -> int:

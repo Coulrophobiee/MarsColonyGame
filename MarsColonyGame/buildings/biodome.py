@@ -1,4 +1,5 @@
 from buildings.generating_building import GeneratingBuilding
+from pygame import image
 
 class Biodome(GeneratingBuilding):
     """
@@ -11,6 +12,7 @@ class Biodome(GeneratingBuilding):
         Initialize a Biodome object with default attributes.
         """
         super().__init__("food")
+        self.icon_path:str = r"MarsColonyGame\icons\bio-dome.png"
         self.metal_cost: int = 2
         self.building_name: str = "Bio Dome"
 
@@ -21,7 +23,7 @@ class Biodome(GeneratingBuilding):
         Returns:
             int: Amount of food generated.
         """
-        return 10
+        return 12
         
     
 

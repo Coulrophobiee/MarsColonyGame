@@ -1,6 +1,7 @@
 from buildings.generating_building import GeneratingBuilding
+from pygame import image
 
-class OreMine(GeneratingBuilding):
+class OreMine(GeneratingBuilding): 
     """
     Class representing an ore mine building in the MarsColony game.
     Inherits from GeneratingBuilding.
@@ -11,8 +12,9 @@ class OreMine(GeneratingBuilding):
         Initialize an OreMine object.
         """
         super().__init__("metal")
+        self.icon_path = r"MarsColonyGame\icons\ore-mine.png"
         self.metal_cost: int = 2
-        self.is_powered: bool = False
+        #self.is_powered: bool = False
         self.building_name: str = "Ore Mine" 
 
     def generate_ressource(self) -> int:

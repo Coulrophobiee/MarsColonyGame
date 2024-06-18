@@ -1,4 +1,5 @@
 from buildings.radius_building import RadiusBuilding
+from pygame import image
 
 class LivingCompartment(RadiusBuilding):
     """
@@ -17,7 +18,7 @@ class LivingCompartment(RadiusBuilding):
         """
         super().__init__(grid, x_position, y_position)
         self.metal_cost: int = 2
-        self.icon_path: str = ""
+        self.icon_path = r"MarsColonyGame\icons\living_compartment.png"
         self.info_text: str = ""
         self.needs_energy: bool = False
         self.building_name: str = "Living Compartment"
