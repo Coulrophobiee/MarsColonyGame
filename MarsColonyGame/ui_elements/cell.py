@@ -1,5 +1,5 @@
 from threading import Thread
-from time import sleep
+from time import sleep, time
 from typing import Any, Optional
 from pygame import draw, Surface
 
@@ -26,7 +26,7 @@ class Cell:
         self.is_powered: bool = False
         self.is_manpowered: bool = False
         self.occupied_with: Any = None
-
+        self._last_color_set_time = time()
         self.icon: Optional[Surface] = None
 
     def change_color(self, color: tuple) -> None:
@@ -84,7 +84,8 @@ class Cell:
         """
         self.is_powered = powered
         self.color = (100, 100, 100)
-        Thread(target=self._reset_color_after_delay, args=(2, )).start()
+        self._last_color_set_time = time()
+        Thread(target=self._reset_color_after_delay, args=(2, self._last_color_set_time)).start()
 
     def set_is_man_powered(self, manpowered: bool) -> None:
         """
@@ -95,9 +96,10 @@ class Cell:
         """
         self.is_manpowered = manpowered
         self.color = (150, 150, 150)
-        Thread(target=self._reset_color_after_delay, args=(2, )).start()
+        self._last_color_set_time = time()
+        Thread(target=self._reset_color_after_delay, args=(2, self._last_color_set_time)).start()
 
-    def _reset_color_after_delay(self, delay: float) -> None:
+    def _reset_color_after_delay(self, delay: float, color_set_time:float) -> None:
         """
         Reset the color of the cell after a delay.
 
@@ -105,4 +107,5 @@ class Cell:
             delay (float): The delay (in seconds) before resetting the color.
         """
         sleep(delay)
-        self.reset_color()
+        if color_set_time == self._last_color_set_time:
+            self.reset_color()

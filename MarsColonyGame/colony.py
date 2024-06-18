@@ -21,7 +21,6 @@ class Colony:
         """
         self.ressource_counter = ressource_counter
         self.day_counter = day_counter
-        self.inhabitants = 0
         self.grid = grid
         self.placed_generating_buildings = []
         self.placed_non_generating_buildings = []
@@ -145,6 +144,6 @@ class Colony:
         Returns:
             bool: True if the colony has succeeded, False otherwise.
         """
-        if self.inhabitants >= 200:
+        if self.ressource_counter.inhabitants_count >= 200:
             return True
         return False

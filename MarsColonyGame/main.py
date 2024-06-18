@@ -57,7 +57,7 @@ def main():
                 if colony.has_failed():
                     print("LOST")
                     running = False
-                elif colony.has_succeded():
+                if colony.has_succeded():
                     print("WON")
                     running = False
     	

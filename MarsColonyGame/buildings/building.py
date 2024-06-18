@@ -28,17 +28,4 @@ class Building(ABC):
             str: Information text about the building.
         """
         return self.info_text
-    
-    def load_and_scale_icon(self)->image:
-        """
-        Load and scale the icons for the colony.
-
-        Args:
-            filename (str): The filename of the icon.
-
-        Returns:
-            pygame.image: The scaled icon.
-        """
-        icon = image.load(self.icon_path)
-        return transform.scale(icon, (self.built_on.size, self.built_on.size))
         
