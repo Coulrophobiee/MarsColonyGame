@@ -14,7 +14,7 @@ class Biodome(GeneratingBuilding):
         super().__init__("food")
         self.icon_path:str = r"MarsColonyGame\icons\bio-dome.png"
         self.metal_cost: int = 2
-        self.object_name_name: str = "Bio Dome"
+        self.object_name: str = "Bio Dome"
 
     def generate_ressource(self) -> int:
         """

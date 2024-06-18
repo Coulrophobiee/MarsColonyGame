@@ -6,7 +6,7 @@ from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from utils.icon_manager import IconManager
 from pygame import transform, image
-
+from random import choice, sample
 
 class Colony:
 
@@ -29,12 +29,35 @@ class Colony:
         """
         Spawn the starting buildings for the colony.
         """
-        self.add_building("Ore Mine", 10, 10, self.grid.grid[10][10])
-        self.grid.grid[10][10].is_occupied = True
-        self.add_building("Living Compartment", 11, 11, self.grid.grid[11][11])
-        self.grid.grid[11][11].is_occupied = True
-        self.add_building("Solar Park", 12, 12, self.grid.grid[12][12])
-        self.grid.grid[12][12].is_occupied = True
+        potential_positions = self.grid.return_unoccupied_cells()
+
+        # Step 1: select random position
+        initial_position = choice(potential_positions)
+        initial_x, initial_y = initial_position
+
+        # Step 2: Generate neighboring positions
+        neighbors = [
+            (initial_x + dx, initial_y + dy)
+            for dx in range(-1, 2)
+            for dy in range(-1, 2)
+            if (dx != 0 or dy != 0) and 0 <= initial_x + dx < self.grid.cell_size and 0 <= initial_y + dy < self.grid.cell_size
+        ]
+
+        # Step 3: Randomly select two more positions from neighbors
+        additional_positions = sample(neighbors, 2)
+        positions = [initial_position] + additional_positions
+
+        buildings = ["Ore Mine", "Living Compartment", "Solar Park"]
+        for building, (x, y) in zip(buildings, positions):
+            self.add_building(building, x, y, self.grid.grid[x][y])
+            self.grid.grid[x][y].is_occupied = True
+
+        # self.add_building("Ore Mine", 10, 10, self.grid.grid[10][10])
+        # self.grid.grid[10][10].is_occupied = True
+        # self.add_building("Living Compartment", 11, 11, self.grid.grid[11][11])
+        # self.grid.grid[11][11].is_occupied = True
+        # self.add_building("Solar Park", 12, 12, self.grid.grid[12][12])
+        # self.grid.grid[12][12].is_occupied = True
 
     def load_and_scale_icons(self, filename: str):
         """

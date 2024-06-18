@@ -11,12 +11,7 @@ class EnvironmentalGenerator:
         self.amounts_to_generate = {Volcano: 20, MarsRock: 20}
 
     def generate(self, grid: Grid):
-        potential_positions = []
-        for row in range(grid.rows):
-            for col in range(grid.cols):
-                cell: Cell = grid.grid[row][col]
-                if not cell.is_occupied:
-                    potential_positions.append((row, col))
+        potential_positions = grid.return_unoccupied_cells()
         
         for object_class, amount in self.amounts_to_generate.items():
             for _ in range(amount):

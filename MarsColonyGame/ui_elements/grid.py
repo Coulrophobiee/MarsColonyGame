@@ -74,3 +74,11 @@ class Grid:
         elif sidebar.selected_building is None:
             sidebar.log.add_text(cell.show_info())
     
+    def return_unoccupied_cells(self)->list:
+        unoccupied_positions = []
+        for row in range(self.rows):
+            for col in range(self.cols):
+                cell: Cell = self.grid[row][col]
+                if not cell.is_occupied:
+                    unoccupied_positions.append((row, col))
+        return unoccupied_positions
