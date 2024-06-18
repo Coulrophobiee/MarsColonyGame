@@ -2,6 +2,7 @@ from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.screen import Screen
 from ui_elements.console_log import ConsoleLog
+from environment.environmental_generator import EnvironmentalGenerator
 from colony import Colony
 from sys import exit
 
@@ -31,6 +32,9 @@ def main():
     colony = Colony(ressource_counter, day_counter, screen.grid)
     colony.spawn_starting_buildings()
 
+    # Generate environment
+    env_generator = EnvironmentalGenerator()
+    env_generator.generate(screen.grid)
     running = True
 
     while running:

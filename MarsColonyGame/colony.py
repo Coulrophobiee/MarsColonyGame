@@ -107,17 +107,16 @@ class Colony:
                 
                 # Set icon and occupy the cell
                 new_building.built_on = cell
-                icon = IconManager(cell.size, new_building.icon_path)
-                new_building.icon = icon.get_scaled_icon()
-                #icon = getattr(building_class, 'icon', None)
+                icon_manager = IconManager(cell.size, new_building.icon_path)
+                new_building.icon = icon_manager.get_scaled_icon()
                 cell.set_icon(new_building.icon)
                 cell.occupied_with = new_building
 
                 # Update building's powered state based on the cell's state
-                if cell.is_powered:
-                    new_building.is_powered = True
-                if cell.is_manpowered:
-                    new_building.is_man_powered = True
+                # if cell.is_powered:
+                #     new_building.is_powered = True
+                # if cell.is_manpowered:
+                #     new_building.is_man_powered = True
 
                 # Special handling for Living Compartment and Solar Park
                 if building_name == "Living Compartment":

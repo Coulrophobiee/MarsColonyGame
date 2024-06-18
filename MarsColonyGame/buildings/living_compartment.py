@@ -21,7 +21,7 @@ class LivingCompartment(RadiusBuilding):
         self.icon_path = r"MarsColonyGame\icons\living_compartment.png"
         self.info_text: str = ""
         self.needs_energy: bool = False
-        self.building_name: str = "Living Compartment"
+        self.object_name: str = "Living Compartment"
 
         self.provides: str = "manpower"
 

@@ -15,7 +15,7 @@ class Building(ABC):
         self.info_text: str = ""
         self.icon: image = None
         self.needs_energy: bool = True
-        self.building_name: str = ""
+        self.object_name: str = ""
         self.icon_path: str = ""
 
         self.built_on: Cell = None

@@ -15,7 +15,7 @@ class OreMine(GeneratingBuilding):
         self.icon_path = r"MarsColonyGame\icons\ore-mine.png"
         self.metal_cost: int = 2
         #self.is_powered: bool = False
-        self.building_name: str = "Ore Mine" 
+        self.object_name: str = "Ore Mine" 
 
     def generate_ressource(self) -> int:
         """

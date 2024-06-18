@@ -71,7 +71,7 @@ class Cell:
             str: A string containing information about the cell.
         """
         if self.occupied_with:
-            return f"Is occupied: {self.is_occupied}\nwith: {self.occupied_with.building_name}\nis powered: {self.is_powered}\nis manpowered: {self.is_manpowered}"
+            return f"Is occupied: {self.is_occupied}\nwith: {self.occupied_with.object_name}\nis powered: {self.is_powered}\nis manpowered: {self.is_manpowered}"
         else:
             return f"Is occupied: {self.is_occupied}\nis powered: {self.is_powered}\nis manpowered: {self.is_manpowered}"
 

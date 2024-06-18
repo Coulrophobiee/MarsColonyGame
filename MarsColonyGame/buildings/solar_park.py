@@ -21,7 +21,7 @@ class SolarPark(RadiusBuilding):
         self.metal_cost: int = 2
         self.radius: int = 5
         self.provides: str = "energy"
-        self.building_name: str = "Solar Park"
+        self.object_name: str = "Solar Park"
 
     def update_cell_state_in_radius(self) -> None:
         """
