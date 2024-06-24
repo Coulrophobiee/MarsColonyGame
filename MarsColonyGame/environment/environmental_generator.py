@@ -8,7 +8,7 @@ from random import choice
 class EnvironmentalGenerator:
 
     def __init__(self) -> None:
-        self.amounts_to_generate = {Volcano: 20, MarsRock: 20}
+        self.amounts_to_generate = {Volcano: 70, MarsRock: 70}
 
     def generate(self, grid: Grid):
         potential_positions = grid.return_unoccupied_cells()

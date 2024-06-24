@@ -1,5 +1,5 @@
 from abc import ABC
-from pygame import image, transform
+from pygame import image
 from ui_elements.cell import Cell
 
 class Building(ABC):
@@ -28,4 +28,3 @@ class Building(ABC):
             str: Information text about the building.
         """
         return self.info_text
-        

@@ -26,6 +26,7 @@ class Grid:
         
         # Create the grid of cells
         self.grid: list[list[Cell]] = [[Cell(col * cell_size, row * cell_size, cell_size) for col in range(self.cols)] for row in range(self.rows)]
+        print(f"{len(self.grid)}, {len(self.grid[0])}")
         
 
     def draw_grid(self, screen: Surface) -> None:
@@ -73,6 +74,34 @@ class Grid:
             sidebar.log.add_text("Cell is occupied,\n you can't build here!")
         elif sidebar.selected_building is None:
             sidebar.log.add_text(cell.show_info())
+
+    def get_grid_position(self, x, y):
+        grid_x = x // self.cell_size
+        grid_y = y // self.cell_size
+        return grid_x, grid_y
+    
+    def get_screen_position(self, row, col):
+        cell:Cell = self.grid[row][col]
+        return (cell.pos_x, cell.pos_y)
+    
+    def get_cell(self, row, col):
+        return self.grid[row][col]
+    
+    def create_crater(self, grid_x, grid_y):
+        impacted_cell:Cell = self.get_cell(grid_x, grid_y)
+        print(f"{impacted_cell.pos_y}, {impacted_cell.pos_y}")
+        if impacted_cell:
+            print("impacted")
+            impacted_cell.change_color((0, 0, 0))
+
+    def meteorite_impact(self, grid_x, grid_y):
+        impacted_tile = self.get_cell(grid_x, grid_y)
+        if impacted_tile and impacted_tile.occupied_with:
+            print(f"A meteorite has damaged a {impacted_tile.occupied_with.object_name}!")
+            impacted_tile.damage_occupier()
+        else:
+            self.create_crater(grid_x, grid_y)
+            print(f"A meteorite has created a crater at ({grid_x}, {grid_y})!")
     
     def return_unoccupied_cells(self)->list:
         unoccupied_positions = []
@@ -82,3 +111,13 @@ class Grid:
                 if not cell.is_occupied:
                     unoccupied_positions.append((row, col))
         return unoccupied_positions
+    
+    def return_cells_suitable_for_meteorite(self)->list:
+        suitable_positions = []
+        for row in range(self.rows):
+            for col in range(self.cols):
+                cell = self.get_cell(row, col)
+                if cell and cell.occupied_with in ["Living Compartment", "Solar Park", "Volcano", "Rock"]:
+                    continue
+                suitable_positions.append((row, col))
+        return suitable_positions

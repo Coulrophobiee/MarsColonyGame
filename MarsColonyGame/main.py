@@ -3,6 +3,7 @@ from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.screen import Screen
 from ui_elements.console_log import ConsoleLog
 from environment.environmental_generator import EnvironmentalGenerator
+from environment.meteorite import Meteorite
 from colony import Colony
 from sys import exit
 
@@ -27,6 +28,11 @@ def main():
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
     pygame.time.set_timer(NEW_DAY_EVENT, 20_00)
+
+    # Define meteorite-crash-event
+    meteorite = None
+    METEORITE_EVENT = pygame.USEREVENT + 2
+    pygame.time.set_timer(METEORITE_EVENT, 6_000) 
 
     # Create colony
     colony = Colony(ressource_counter, day_counter, screen.grid)
@@ -60,12 +66,22 @@ def main():
                 if colony.has_succeded():
                     print("WON")
                     running = False
-    	
+            elif event.type == METEORITE_EVENT:
+                meteorite = Meteorite(screen, screen.grid)
+
+        if meteorite:
+            meteorite.fall()
+            if meteorite.current_position == None:
+                meteorite = None
+
         screen.display()
+
+        if meteorite and meteorite.current_position != None:
+            meteorite.draw()
 
         pygame.display.flip()
     pygame.quit()
     exit()
-    
+
 if __name__ == "__main__":
     main()

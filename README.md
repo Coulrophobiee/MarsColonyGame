@@ -9,3 +9,5 @@ Ore Mine icon: https://www.flaticon.com/free-icon/coal-factory_1847379?term=mine
 Mars Rock icon: https://www.flaticon.com/free-icon/canyon_5241298?term=grand+canyon&page=1&position=13&origin=search&related_id=5241298
 
 Volcano icon: https://www.flaticon.com/free-icons/volcano
+
+Meteorite icon: https://www.flaticon.com/free-icons/asteroid"

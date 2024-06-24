@@ -27,7 +27,13 @@ class Cell:
         self.is_manpowered: bool = False
         self.occupied_with: Any = None
         self._last_color_set_time = time()
-        self.icon: Optional[Surface] = None
+        self.icon = None
+
+    def damage_occupier(self):
+        self.icon = None
+        self.occupied_with = None
+        self.is_occupied = False
+        self.color = (0, 0, 0)
 
     def change_color(self, color: tuple) -> None:
         """
@@ -62,6 +68,7 @@ class Cell:
     def reset_color(self) -> None:
         """Reset the color of the cell."""
         self.color = (139, 69, 19)
+
 
     def show_info(self) -> str:
         """

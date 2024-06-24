@@ -28,6 +28,8 @@ class Screen:
             screen_width (int, optional): Width of the screen. Defaults to 1100.
             sidebar_width (int, optional): Width of the sidebar. Defaults to 200.
         """
+        self.height = screen_height
+        self.width = screen_width
         self.screen = display.set_mode((screen_width, screen_height))
         display.set_caption("MarsColony")
 
@@ -39,14 +41,14 @@ class Screen:
         sidebar_height = screen_height
 
         # Available grid dimensions
-        available_grid_width = screen_width - sidebar_width
-        available_grid_height = screen_height
+        self.available_grid_width = screen_width - sidebar_width
+        self.available_grid_height = screen_height
 
         # Initialize sidebar and grid
         self.sidebar = Sidebar(sidebar_x_position, sidebar_y_position, 
                                sidebar_width, sidebar_height, building_option, 
                                day_counter, ressource_counter, log)
-        self.grid = Grid(available_grid_width, available_grid_height)
+        self.grid = Grid(self.available_grid_width, self.available_grid_height)
 
     def display(self) -> None:
         """
