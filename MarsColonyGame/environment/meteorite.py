@@ -22,9 +22,9 @@ class Meteorite:
         # Start at random x position
         self.x = randint(0, screen.available_grid_width)
         # Start above the screen
-        self.y = -20  
+        self.y = -30  
         # Falling speed
-        self.speed = 3 
+        self.speed = 5 
 
         self.icon_path = r"MarsColonyGame\icons\meteorite.png"
         icon_manager = IconManager(grid.cell_size, self.icon_path)
@@ -40,18 +40,20 @@ class Meteorite:
         Move the meteorite towards its target position. Impact the grid if it reaches the target.
         """
         if self.current_position is None:
-            return  # Skip if already impacted
+            # Skip if already impacted
+            return 
         
-        distance_to_target = self.current_position.distance_to(self.target_position)
-        
-        # Ensure the meteorite doesn't overshoot the target
-        if distance_to_target < self.speed:
-            self.current_position = self.target_position
-        else:
-            self.current_position = self.current_position.move_towards(self.target_position, self.speed)
-                
-        if distance_to_target <= 2:
-            self.impact()
+        if self.target_cell_x and self.target_cell_y:
+            distance_to_target = self.current_position.distance_to(self.target_position)
+            
+            # Ensure the meteorite doesn't overshoot the target
+            if distance_to_target < self.speed:
+                self.current_position = self.target_position
+            else:
+                self.current_position = self.current_position.move_towards(self.target_position, self.speed)
+                    
+            if distance_to_target <= 2:
+                self.impact()
 
     def get_random_position(self) -> Tuple[Optional[int], Optional[int]]:
         """
