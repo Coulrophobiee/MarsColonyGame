@@ -74,7 +74,6 @@ def main():
                     meteorite = Meteorite(screen, screen.grid)
                 if not meteorite_chance >= 0.9 and random() < meteorite_chance_increase_chance:
                     meteorite_chance += 0.1
-                    print(meteorite_chance)
 
         if meteorite:
             meteorite.fall()

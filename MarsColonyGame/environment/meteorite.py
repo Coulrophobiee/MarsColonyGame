@@ -66,7 +66,6 @@ class Meteorite:
         if not suitable_positions:
             return None, None
         pos = choice(suitable_positions)
-        print(pos)
         return pos
 
     def impact(self) -> None:

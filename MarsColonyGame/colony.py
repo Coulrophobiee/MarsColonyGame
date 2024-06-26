@@ -33,9 +33,20 @@ class Colony:
 
         # Step 1: select random position
         initial_position = choice(potential_positions)
+        initial_position = list(initial_position)
+
+        # Step 2: change position to avoid edge spawns
+        if initial_position[0] < 4:
+            initial_position[0] += 5
+        elif initial_position[0] > 25:
+            initial_position[0] -= 5
+        if initial_position[1] < 4:
+            initial_position[1] += 5
+        elif initial_position[1] > 15:
+            initial_position[1] -= 5
         initial_x, initial_y = initial_position
 
-        # Step 2: Generate neighboring positions
+        # Step 3: Generate neighboring positions
         neighbors = [
             (initial_x + dx, initial_y + dy)
             for dx in range(-1, 2)
@@ -43,7 +54,7 @@ class Colony:
             if (dx != 0 or dy != 0) and 0 <= initial_x + dx < self.grid.cell_size and 0 <= initial_y + dy < self.grid.cell_size
         ]
 
-        # Step 3: Randomly select two more positions from neighbors
+        # Step 4: Randomly select two more positions from neighbors
         additional_positions = sample(neighbors, 2)
         positions = [initial_position] + additional_positions
 
@@ -51,13 +62,6 @@ class Colony:
         for building, (x, y) in zip(buildings, positions):
             self.add_building(building, x, y, self.grid.grid[x][y])
             self.grid.grid[x][y].is_occupied = True
-
-        # self.add_building("Ore Mine", 10, 10, self.grid.grid[10][10])
-        # self.grid.grid[10][10].is_occupied = True
-        # self.add_building("Living Compartment", 11, 11, self.grid.grid[11][11])
-        # self.grid.grid[11][11].is_occupied = True
-        # self.add_building("Solar Park", 12, 12, self.grid.grid[12][12])
-        # self.grid.grid[12][12].is_occupied = True
 
     def load_and_scale_icons(self, filename: str):
         """

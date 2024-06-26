@@ -29,8 +29,6 @@ class Grid:
         
         # Create the grid of cells
         self.grid: list[list[Cell]] = [[Cell(col * cell_size, row * cell_size, cell_size) for col in range(self.cols)] for row in range(self.rows)]
-        print(f"{len(self.grid)}, {len(self.grid[0])}")
-        
 
     def draw_grid(self, screen: Surface) -> None:
         """
@@ -65,7 +63,9 @@ class Grid:
         if sidebar.selected_building and not cell.is_occupied:
             # Add building to colony if enough resources
             if not colony.add_building(sidebar.selected_building, row, col, cell):
-                print(f"Not enough resources for {sidebar.selected_building}")
+                ressource_msg = f"Not enough resources\nfor {sidebar.selected_building}"
+                sidebar.log.add_text(ressource_msg)
+
             else:
                 # Occupy cell 
                 cell.is_occupied = True
@@ -92,7 +92,6 @@ class Grid:
     
     def create_crater(self, grid_x, grid_y):
         impacted_cell:Cell = self.get_cell(grid_x, grid_y)
-        print(f"{impacted_cell.pos_y}, {impacted_cell.pos_y}")
         if impacted_cell:
             dust_icon_path = r"MarsColonyGame\icons\dust.png"
             icon_manager = IconManager(self.cell_size, dust_icon_path)
