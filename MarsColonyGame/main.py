@@ -6,6 +6,7 @@ from environment.environmental_generator import EnvironmentalGenerator
 from environment.meteorite import Meteorite
 from colony import Colony
 from sys import exit
+from random import random
 
 import pygame
 
@@ -27,12 +28,14 @@ def main():
     
     # Define timer event and interval in milliseconds (currently 20 sceonds)
     NEW_DAY_EVENT = pygame.USEREVENT + 1
-    pygame.time.set_timer(NEW_DAY_EVENT, 20_00)
+    pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
 
     # Define meteorite-crash-event
+    meteorite_chance = 0.8
+    meteorite_chance_increase_chance = 0.2
     meteorite = None
     METEORITE_EVENT = pygame.USEREVENT + 2
-    pygame.time.set_timer(METEORITE_EVENT, 6_000) 
+    pygame.time.set_timer(METEORITE_EVENT, 5000) 
 
     # Create colony
     colony = Colony(ressource_counter, day_counter, screen.grid)
@@ -67,7 +70,11 @@ def main():
                     print("WON")
                     running = False
             elif event.type == METEORITE_EVENT:
-                meteorite = Meteorite(screen, screen.grid)
+                if random() < meteorite_chance:
+                    meteorite = Meteorite(screen, screen.grid)
+                if not meteorite_chance >= 0.9 and random() < meteorite_chance_increase_chance:
+                    meteorite_chance += 0.1
+                    print(meteorite_chance)
 
         if meteorite:
             meteorite.fall()

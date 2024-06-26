@@ -73,8 +73,9 @@ class Meteorite:
         """
         Handle the impact of the meteorite on the grid.
         """
-        self.grid.meteorite_impact(self.target_cell_x, self.target_cell_y)
+        log_msg = self.grid.meteorite_impact(self.target_cell_x, self.target_cell_y)
         self.current_position = None
+        self.screen.sidebar.log.add_text(log_msg)
 
     def draw(self) -> None:
         """

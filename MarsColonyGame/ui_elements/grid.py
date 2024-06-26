@@ -1,7 +1,10 @@
 from ui_elements.cell import Cell
 from ui_elements.sidebar import Sidebar
+from utils.icon_manager import IconManager
 from colony import Colony
 from pygame import Surface
+from time import sleep
+from threading import Thread
 
 class Grid:
     """
@@ -91,17 +94,26 @@ class Grid:
         impacted_cell:Cell = self.get_cell(grid_x, grid_y)
         print(f"{impacted_cell.pos_y}, {impacted_cell.pos_y}")
         if impacted_cell:
-            print("impacted")
-            impacted_cell.change_color((0, 0, 0))
+            dust_icon_path = r"MarsColonyGame\icons\dust.png"
+            icon_manager = IconManager(self.cell_size, dust_icon_path)
+            dust_icon = icon_manager.get_scaled_icon()
+            impacted_cell.set_icon(dust_icon)
+            impacted_cell.is_occupied = True
+            Thread(target=self._reset_icon_after_impact, args=(2, impacted_cell)).start()
 
+    def _reset_icon_after_impact(self, delay, impacted_cell:Cell):
+        sleep(delay)
+        impacted_cell.is_occupied = False
+        impacted_cell.set_icon(None)
+    
     def meteorite_impact(self, grid_x, grid_y):
         impacted_tile = self.get_cell(grid_x, grid_y)
         if impacted_tile and impacted_tile.occupied_with:
-            print(f"A meteorite has damaged a {impacted_tile.occupied_with.object_name}!")
-            impacted_tile.damage_occupier()
+            msg = impacted_tile.damage_occupier()
         else:
             self.create_crater(grid_x, grid_y)
-            print(f"A meteorite has created a crater at ({grid_x}, {grid_y})!")
+            msg = f"A meteorite has created\na crater at ({grid_x}, {grid_y})!"
+        return msg
     
     def return_unoccupied_cells(self)->list:
         unoccupied_positions = []

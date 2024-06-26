@@ -11,3 +11,5 @@ Mars Rock icon: https://www.flaticon.com/free-icon/canyon_5241298?term=grand+can
 Volcano icon: https://www.flaticon.com/free-icons/volcano
 
 Meteorite icon: https://www.flaticon.com/free-icons/asteroid"
+
+Dust icon: https://www.flaticon.com/free-icon/dust_4383809?term=dust&page=1&position=7&origin=search&related_id=4383809

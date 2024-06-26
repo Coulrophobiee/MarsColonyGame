@@ -30,10 +30,15 @@ class Cell:
         self.icon = None
 
     def damage_occupier(self):
+        if self.occupied_with.object_name in ["Bio Dome", "Ore Mine"]:
+            console_msg = f"A meteorite has damaged one\nof your {self.occupied_with.object_name}'s!"
+        else:
+            console_msg = f"A meteorite has damaged\na {self.occupied_with.object_name}!"
         self.icon = None
         self.occupied_with = None
         self.is_occupied = False
-        self.color = (0, 0, 0)
+        return console_msg
+        
 
     def change_color(self, color: tuple) -> None:
         """
