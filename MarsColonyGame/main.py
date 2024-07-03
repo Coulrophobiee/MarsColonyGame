@@ -2,6 +2,7 @@ from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.screen import Screen
 from ui_elements.console_log import ConsoleLog
+from ui_elements.popup import Popup
 from environment.environmental_generator import EnvironmentalGenerator
 from environment.meteorite import Meteorite
 from colony import Colony
@@ -31,8 +32,8 @@ def main():
     pygame.time.set_timer(NEW_DAY_EVENT, 20_000)
 
     # Define meteorite-crash-event
-    meteorite_chance = 0.8
-    meteorite_chance_increase_chance = 0.2
+    meteorite_chance = 0.1
+    meteorite_chance_increase_chance = 0.5
     meteorite = None
     METEORITE_EVENT = pygame.USEREVENT + 2
     pygame.time.set_timer(METEORITE_EVENT, 5000) 
@@ -65,15 +66,19 @@ def main():
                 colony.consume_food()
                 if colony.has_failed():
                     print("LOST")
+                    popup = Popup(screen, "You Lose")
+                    popup.display()
                     running = False
                 if colony.has_succeded():
                     print("WON")
+                    popup = Popup(screen, "You Win")
+                    popup.display()
                     running = False
             elif event.type == METEORITE_EVENT:
                 if random() < meteorite_chance:
                     meteorite = Meteorite(screen, screen.grid)
                 if not meteorite_chance >= 0.9 and random() < meteorite_chance_increase_chance:
-                    meteorite_chance += 0.1
+                    meteorite_chance += 0.07
 
         if meteorite:
             meteorite.fall()

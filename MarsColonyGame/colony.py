@@ -30,33 +30,45 @@ class Colony:
         Spawn the starting buildings for the colony.
         """
         potential_positions = self.grid.return_unoccupied_cells()
+        if not potential_positions:
+            print("No unoccupied cells available.")
+            return
 
         # Step 1: select random position
         initial_position = choice(potential_positions)
-        initial_position = list(initial_position)
+        initial_x, initial_y = initial_position
 
         # Step 2: change position to avoid edge spawns
-        if initial_position[0] < 4:
-            initial_position[0] += 5
-        elif initial_position[0] > 25:
-            initial_position[0] -= 5
-        if initial_position[1] < 4:
-            initial_position[1] += 5
-        elif initial_position[1] > 15:
-            initial_position[1] -= 5
-        initial_x, initial_y = initial_position
+        grid_width = self.grid.rows  # Assuming grid has width and height attributes
+        grid_height = self.grid.cols  # Assuming grid has width and height attributes
+
+        def adjust_position(x, y):
+            if x < 4:
+                x = 4
+            elif x > grid_width - 5:
+                x = grid_width - 5
+            if y < 4:
+                y = 4
+            elif y > grid_height - 5:
+                y = grid_height - 5
+            return x, y
+
+        initial_x, initial_y = adjust_position(initial_x, initial_y)
 
         # Step 3: Generate neighboring positions
         neighbors = [
             (initial_x + dx, initial_y + dy)
             for dx in range(-1, 2)
             for dy in range(-1, 2)
-            if (dx != 0 or dy != 0) and 0 <= initial_x + dx < self.grid.cell_size and 0 <= initial_y + dy < self.grid.cell_size
+            if (dx != 0 or dy != 0) and 0 <= initial_x + dx < grid_width and 0 <= initial_y + dy < grid_height
         ]
+
+        # Ensure that neighboring positions are unoccupied
+        neighbors = [(x, y) for (x, y) in neighbors if not self.grid.grid[x][y].is_occupied]
 
         # Step 4: Randomly select two more positions from neighbors
         additional_positions = sample(neighbors, 2)
-        positions = [initial_position] + additional_positions
+        positions = [(initial_x, initial_y)] + additional_positions
 
         buildings = ["Ore Mine", "Living Compartment", "Solar Park"]
         for building, (x, y) in zip(buildings, positions):
