@@ -1,13 +1,30 @@
 from typing import Optional
-from pygame import draw, Rect
+from pygame import draw, Rect, Surface
 from utils.pane import Pane
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.console_log import ConsoleLog
 
 class Sidebar:
+    """
+    Represents the sidebar in the MarsColony game, which displays various game statistics and options.
+    """
+
     def __init__(self, x: int, y: int, width: int, height: int, building_options: list[str], 
                  day_counter: DayCounter, ressource_counter: RessourceCounter, log: ConsoleLog) -> None:
+        """
+        Initialize a Sidebar object.
+
+        Args:
+            x (int): The x-coordinate of the sidebar.
+            y (int): The y-coordinate of the sidebar.
+            width (int): The width of the sidebar.
+            height (int): The height of the sidebar.
+            building_options (list[str]): A list of building options.
+            day_counter (DayCounter): The day counter object.
+            ressource_counter (RessourceCounter): The resource counter object.
+            log (ConsoleLog): The console log object.
+        """
         self.x: int = x
         self.y: int = y
         self.width: int = width
@@ -18,7 +35,13 @@ class Sidebar:
         self.ressource_counter: RessourceCounter = ressource_counter
         self.log: ConsoleLog = log
     
-    def draw_sidebar(self, screen) -> None:
+    def draw_sidebar(self, screen: Surface) -> None:
+        """
+        Draw the sidebar on the screen.
+
+        Args:
+            screen (Surface): The surface to draw the sidebar on.
+        """
         draw.rect(screen, (47, 79, 79), (self.x, self.y, self.width, self.height))
 
         day_counter_position: tuple[int, int, int, int] = (self.x + 10, self.y + 10, self.width - 20, 40)
@@ -46,6 +69,12 @@ class Sidebar:
         self.log.draw_log(screen, self.x, self.y, self.width)
     
     def handle_click(self, position: tuple[int, int]) -> None:
+        """
+        Handle mouse click on the sidebar.
+
+        Args:
+            position (tuple[int, int]): The position of the mouse click.
+        """
         x: int
         y: int
         x, y = position

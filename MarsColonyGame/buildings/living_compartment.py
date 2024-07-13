@@ -1,5 +1,4 @@
 from buildings.radius_building import RadiusBuilding
-from pygame import image
 
 class LivingCompartment(RadiusBuilding):
     """

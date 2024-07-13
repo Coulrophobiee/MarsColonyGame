@@ -78,20 +78,57 @@ class Grid:
         elif sidebar.selected_building is None:
             sidebar.log.add_text(cell.show_info())
 
-    def get_grid_position(self, x, y):
+    def get_grid_position(self, x: int, y: int) -> tuple[int, int]:
+        """
+        Get the grid position from screen coordinates.
+
+        Args:
+            x (int): The x-coordinate on the screen.
+            y (int): The y-coordinate on the screen.
+
+        Returns:
+            tuple[int, int]: The grid position as (grid_x, grid_y).
+        """
         grid_x = x // self.cell_size
         grid_y = y // self.cell_size
         return grid_x, grid_y
     
-    def get_screen_position(self, row, col):
-        cell:Cell = self.grid[row][col]
+    def get_screen_position(self, row: int, col: int) -> tuple[int, int]:
+        """
+        Get the screen position from grid coordinates.
+
+        Args:
+            row (int): The row in the grid.
+            col (int): The column in the grid.
+
+        Returns:
+            tuple[int, int]: The screen position as (x, y).
+        """
+        cell: Cell = self.grid[row][col]
         return (cell.pos_x, cell.pos_y)
     
-    def get_cell(self, row, col):
+    def get_cell(self, row: int, col: int) -> Cell:
+        """
+        Get the cell object at the specified grid coordinates.
+
+        Args:
+            row (int): The row in the grid.
+            col (int): The column in the grid.
+
+        Returns:
+            Cell: The cell object.
+        """
         return self.grid[row][col]
     
-    def create_crater(self, grid_x, grid_y):
-        impacted_cell:Cell = self.get_cell(grid_x, grid_y)
+    def create_crater(self, grid_x: int, grid_y: int) -> None:
+        """
+        Create a crater at the specified grid coordinates.
+
+        Args:
+            grid_x (int): The x-coordinate in the grid.
+            grid_y (int): The y-coordinate in the grid.
+        """
+        impacted_cell: Cell = self.get_cell(grid_x, grid_y)
         if impacted_cell:
             dust_icon_path = r"MarsColonyGame\icons\dust.png"
             icon_manager = IconManager(self.cell_size, dust_icon_path)
@@ -100,12 +137,29 @@ class Grid:
             impacted_cell.is_occupied = True
             Thread(target=self._reset_icon_after_impact, args=(2, impacted_cell)).start()
 
-    def _reset_icon_after_impact(self, delay, impacted_cell:Cell):
+    def _reset_icon_after_impact(self, delay: int, impacted_cell: Cell) -> None:
+        """
+        Reset the icon of the impacted cell after a delay.
+
+        Args:
+            delay (int): The delay in seconds before resetting the icon.
+            impacted_cell (Cell): The cell to reset.
+        """
         sleep(delay)
         impacted_cell.is_occupied = False
         impacted_cell.set_icon(None)
     
-    def meteorite_impact(self, grid_x, grid_y):
+    def meteorite_impact(self, grid_x: int, grid_y: int) -> str:
+        """
+        Handle a meteorite impact at the specified grid coordinates.
+
+        Args:
+            grid_x (int): The x-coordinate in the grid.
+            grid_y (int): The y-coordinate in the grid.
+
+        Returns:
+            str: The message describing the impact result.
+        """
         impacted_tile = self.get_cell(grid_x, grid_y)
         if impacted_tile and impacted_tile.occupied_with:
             msg = impacted_tile.damage_occupier()
@@ -114,20 +168,32 @@ class Grid:
             msg = f"A meteorite has created\na crater at ({grid_x}, {grid_y})!"
         return msg
     
-    def return_unoccupied_cells(self)->list:
+    def return_unoccupied_cells(self) -> list[tuple[int, int]]:
+        """
+        Return a list of unoccupied cell positions in the grid.
+
+        Returns:
+            list[tuple[int, int]]: A list of unoccupied cell positions.
+        """
         unoccupied_positions = []
         for row in range(self.rows):
             for col in range(self.cols):
                 cell: Cell = self.grid[row][col]
                 if not cell.is_occupied:
                     unoccupied_positions.append((row, col))
-        return unoccupied_positions
+        return unoccupied_positions   
     
-    def return_cells_suitable_for_meteorite(self)->list:
+    def return_cells_suitable_for_meteorite(self) -> list[tuple[int, int]]:
+        """
+        Return a list of cell positions suitable for meteorite impacts.
+
+        Returns:
+            list[tuple[int, int]]: A list of suitable cell positions.
+        """
         suitable_positions = []
         for row in range(self.rows):
             for col in range(self.cols):
-                cell = self.get_cell(row, col)
+                cell: Cell = self.get_cell(row, col)
                 if cell and cell.occupied_with in ["Living Compartment", "Solar Park", "Volcano", "Rock"]:
                     continue
                 suitable_positions.append((row, col))
