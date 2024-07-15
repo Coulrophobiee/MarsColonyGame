@@ -36,7 +36,7 @@ def main():
     meteorite_chance_increase_chance = 0.5
     meteorite = None
     METEORITE_EVENT = pygame.USEREVENT + 2
-    pygame.time.set_timer(METEORITE_EVENT, 5000) 
+    pygame.time.set_timer(METEORITE_EVENT, 5000)
 
     # Create colony
     colony = Colony(ressource_counter, day_counter, screen.grid)
@@ -65,12 +65,12 @@ def main():
                 colony.generate_ressources()
                 colony.consume_food()
                 if colony.has_failed():
-                    print("LOST")
+                    screen.sidebar.log.add_text("")
                     popup = Popup(screen, "You Lose")
                     popup.display()
                     running = False
                 if colony.has_succeded():
-                    print("WON")
+                    screen.sidebar.log.add_text("")
                     popup = Popup(screen, "You Win")
                     popup.display()
                     running = False
@@ -78,7 +78,7 @@ def main():
                 if random() < meteorite_chance:
                     meteorite = Meteorite(screen, screen.grid)
                 if not meteorite_chance >= 0.9 and random() < meteorite_chance_increase_chance:
-                    meteorite_chance += 0.07
+                    meteorite_chance += 0.02
 
         if meteorite:
             meteorite.fall()

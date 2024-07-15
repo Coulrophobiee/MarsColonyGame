@@ -5,7 +5,6 @@ from buildings.solar_park import SolarPark
 from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from utils.icon_manager import IconManager
-from pygame import transform, image
 from random import choice, sample
 
 class Colony:
@@ -39,10 +38,11 @@ class Colony:
         initial_x, initial_y = initial_position
 
         # Step 2: change position to avoid edge spawns
-        grid_width = self.grid.rows  # Assuming grid has width and height attributes
-        grid_height = self.grid.cols  # Assuming grid has width and height attributes
+        grid_width = self.grid.rows
+        grid_height = self.grid.cols
 
         def adjust_position(x, y):
+            print(f"Prev: {x}, prev:{y}")
             if x < 4:
                 x = 4
             elif x > grid_width - 5:
@@ -54,6 +54,7 @@ class Colony:
             return x, y
 
         initial_x, initial_y = adjust_position(initial_x, initial_y)
+        print(f"current:{initial_x}, {initial_y}")
 
         # Step 3: Generate neighboring positions
         neighbors = [
@@ -75,18 +76,18 @@ class Colony:
             self.add_building(building, x, y, self.grid.grid[x][y])
             self.grid.grid[x][y].is_occupied = True
 
-    def load_and_scale_icons(self, filename: str):
-        """
-        Load and scale the icons for the colony.
+    # def load_and_scale_icons(self, filename: str):
+    #     """
+    #     Load and scale the icons for the colony.
 
-        Args:
-            filename (str): The filename of the icon.
+    #     Args:
+    #         filename (str): The filename of the icon.
 
-        Returns:
-            pygame.Surface: The scaled icon.
-        """
-        icon = image.load(filename)
-        return transform.scale(icon, (self.grid.cell_size, self.grid.cell_size))
+    #     Returns:
+    #         pygame.Surface: The scaled icon.
+    #     """
+    #     icon = image.load(filename)
+    #     return transform.scale(icon, (self.grid.cell_size, self.grid.cell_size))
 
     def generate_ressources(self) -> None:
         """
