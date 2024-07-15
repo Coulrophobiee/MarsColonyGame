@@ -13,7 +13,6 @@ class OreMine(GeneratingBuilding):
         super().__init__("metal")
         self.icon_path = r"MarsColonyGame\icons\ore-mine.png"
         self.metal_cost: int = 2
-        #self.is_powered: bool = False
         self.object_name: str = "Ore Mine" 
 
     def generate_ressource(self) -> int:
@@ -24,4 +23,3 @@ class OreMine(GeneratingBuilding):
             int: Amount of metal generated.
         """
         return 10
-    

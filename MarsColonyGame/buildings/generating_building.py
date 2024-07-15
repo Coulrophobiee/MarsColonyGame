@@ -30,4 +30,3 @@ class GeneratingBuilding(Building, ABC):
             int: The amount of resource generated.
         """
         pass
-    

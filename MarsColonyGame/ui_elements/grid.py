@@ -194,7 +194,7 @@ class Grid:
         for row in range(self.rows):
             for col in range(self.cols):
                 cell: Cell = self.get_cell(row, col)
-                if cell and cell.occupied_with in ["Living Compartment", "Solar Park", "Volcano", "Rock"]:
+                if cell and cell.occupied_with in ["Living Compartment", "Solar Park"]:
                     continue
                 suitable_positions.append((row, col))
         return suitable_positions

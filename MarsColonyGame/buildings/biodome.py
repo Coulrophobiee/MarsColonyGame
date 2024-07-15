@@ -24,6 +24,3 @@ class Biodome(GeneratingBuilding):
             int: Amount of food generated.
         """
         return 12
-        
-    
-

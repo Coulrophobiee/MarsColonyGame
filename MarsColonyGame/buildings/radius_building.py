@@ -5,13 +5,6 @@ from ui_elements.cell import Cell
 class RadiusBuilding(Building):
     """
     A class representing a building that can influence cells within a certain radius.
-
-    Attributes:
-        grid (Grid): The grid on which the building is placed.
-        radius (int): The radius within which the building can affect cells.
-        x_position (int): The x-coordinate position of the building on the grid.
-        y_position (int): The y-coordinate position of the building on the grid.
-        provides (str): The type of resource the building provides.
     """
 
     def __init__(self, grid, x_position: int, y_position: int) -> None:
@@ -25,7 +18,7 @@ class RadiusBuilding(Building):
         """
         super().__init__()
         self.grid = grid
-        self.radius: int = 5
+        self.radius: int = None
         self.x_position: int = x_position
         self.y_position: int = y_position
         self.provides: str = ""
@@ -50,10 +43,5 @@ class RadiusBuilding(Building):
                     cell: Cell = self.grid.grid[row][col]
                     if power_type == "energy":
                         cell.set_is_powered(True)
-                        if cell.is_occupied:
-                            cell.occupied_with.is_powered = True
                     elif power_type == "manpower":
                         cell.set_is_man_powered(True)
-                        if cell.is_occupied:
-                            cell.occupied_with.is_man_powered = True
-

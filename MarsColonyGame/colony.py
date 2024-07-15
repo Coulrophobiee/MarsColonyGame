@@ -42,7 +42,6 @@ class Colony:
         grid_height = self.grid.cols
 
         def adjust_position(x, y):
-            print(f"Prev: {x}, prev:{y}")
             if x < 4:
                 x = 4
             elif x > grid_width - 5:
@@ -54,7 +53,6 @@ class Colony:
             return x, y
 
         initial_x, initial_y = adjust_position(initial_x, initial_y)
-        print(f"current:{initial_x}, {initial_y}")
 
         # Step 3: Generate neighboring positions
         neighbors = [
@@ -75,19 +73,6 @@ class Colony:
         for building, (x, y) in zip(buildings, positions):
             self.add_building(building, x, y, self.grid.grid[x][y])
             self.grid.grid[x][y].is_occupied = True
-
-    # def load_and_scale_icons(self, filename: str):
-    #     """
-    #     Load and scale the icons for the colony.
-
-    #     Args:
-    #         filename (str): The filename of the icon.
-
-    #     Returns:
-    #         pygame.Surface: The scaled icon.
-    #     """
-    #     icon = image.load(filename)
-    #     return transform.scale(icon, (self.grid.cell_size, self.grid.cell_size))
 
     def generate_ressources(self) -> None:
         """
@@ -150,12 +135,6 @@ class Colony:
                 new_building.icon = icon_manager.get_scaled_icon()
                 cell.set_icon(new_building.icon)
                 cell.occupied_with = new_building
-
-                # Update building's powered state based on the cell's state
-                # if cell.is_powered:
-                #     new_building.is_powered = True
-                # if cell.is_manpowered:
-                #     new_building.is_man_powered = True
 
                 # Special handling for Living Compartment and Solar Park
                 if building_name == "Living Compartment":
