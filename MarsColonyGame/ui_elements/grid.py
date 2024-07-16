@@ -28,7 +28,8 @@ class Grid:
         self.cell_size: int = cell_size
         
         # Create the grid of cells
-        self.grid: list[list[Cell]] = [[Cell(col * cell_size, row * cell_size, cell_size) for col in range(self.cols)] for row in range(self.rows)]
+        self.grid: list[list[Cell]] = [[Cell(col * cell_size, row * cell_size, cell_size) for col in range(self.cols)] 
+                                        for row in range(self.rows)]
 
     def draw_grid(self, screen: Surface) -> None:
         """
@@ -50,10 +51,13 @@ class Grid:
             sidebar (Sidebar): The sidebar object.
             colony (Colony): The colony object.
         """
+        x:int
+        y:int
         x, y = position
 
         # Mouse position (in pixels) divided by width of the cells equals column (x-coordinate) 
         col: int = x // self.cell_size
+
         # Mouse position (in pixels) divided by height of the cells equals row (y-coordinate) 
         row: int = y // self.cell_size
 
@@ -61,6 +65,7 @@ class Grid:
         cell: Cell = self.grid[row][col]
 
         if sidebar.selected_building and not cell.is_occupied:
+
             # Add building to colony if enough resources
             if not colony.add_building(sidebar.selected_building, row, col, cell):
                 ressource_msg = f"Not enough resources\nfor {sidebar.selected_building}"
@@ -89,8 +94,8 @@ class Grid:
         Returns:
             tuple[int, int]: The grid position as (grid_x, grid_y).
         """
-        grid_x = x // self.cell_size
-        grid_y = y // self.cell_size
+        grid_x: int = x // self.cell_size
+        grid_y: int = y // self.cell_size
         return grid_x, grid_y
     
     def get_screen_position(self, row: int, col: int) -> tuple[int, int]:
@@ -130,9 +135,9 @@ class Grid:
         """
         impacted_cell: Cell = self.get_cell(grid_x, grid_y)
         if impacted_cell:
-            dust_icon_path = r"MarsColonyGame\icons\dust.png"
+            dust_icon_path: str = r"MarsColonyGame\icons\dust.png"
             icon_manager = IconManager(self.cell_size, dust_icon_path)
-            dust_icon = icon_manager.get_scaled_icon()
+            dust_icon: Surface = icon_manager.get_scaled_icon()
             impacted_cell.set_icon(dust_icon)
             impacted_cell.is_occupied = True
             Thread(target=self._reset_icon_after_impact, args=(2, impacted_cell)).start()
@@ -160,7 +165,7 @@ class Grid:
         Returns:
             str: The message describing the impact result.
         """
-        impacted_tile = self.get_cell(grid_x, grid_y)
+        impacted_tile: Cell = self.get_cell(grid_x, grid_y)
         if impacted_tile and impacted_tile.occupied_with:
             msg = impacted_tile.damage_occupier()
         else:

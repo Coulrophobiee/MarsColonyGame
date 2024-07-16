@@ -8,13 +8,7 @@ from random import choice
 class EnvironmentalGenerator:
     """
     A class to generate environmental objects on a grid.
-
-    Attributes:
-    ----------
-    amounts_to_generate : dict
-        A dictionary mapping classes of environmental objects to the amounts to generate.
     """
-
     def __init__(self) -> None:
         """
         Initializes the EnvironmentalGenerator with default amounts to generate for each environmental object.
@@ -36,15 +30,19 @@ class EnvironmentalGenerator:
         # Iterate over each object class and the amount to generate
         for object_class, amount in self.amounts_to_generate.items():
             for _ in range(amount):
+
                 # Randomly select a position from the list of potential positions
                 position = choice(potential_positions)
+
                 # Remove the selected position from the list to avoid re-selection
                 potential_positions.remove(position)
 
                 # Get the cell at the selected position in the grid
                 cell: Cell = grid.grid[position[0]][position[1]]
+
                 # Mark the cell as occupied
                 cell.is_occupied = True
+                
                 # Create an instance of the environmental object and place it in the cell
                 environmental_object = object_class(cell)
                 cell.occupied_with = environmental_object

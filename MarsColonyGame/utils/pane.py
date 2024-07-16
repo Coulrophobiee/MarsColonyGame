@@ -51,17 +51,17 @@ class Pane:
             foreground_color (tuple[int, int, int]): The color of the text. Defaults to black.
         """
         # Split the text into lines for multiline support
-        lines = text.split('\n')
-        line_height = self.font.get_linesize()
+        lines: list[str] = text.split('\n')
+        line_height: int = self.font.get_linesize()
         
         # Calculate the maximum number of lines that can fit in the pane
-        max_lines = self.pane_position[3] // line_height  
+        max_lines: int = self.pane_position[3] // line_height  
         # Determine how many lines to render
-        num_lines = min(len(lines), max_lines) 
+        num_lines: int = min(len(lines), max_lines) 
 
         # Calculate the total height of the text to center it vertically
-        total_text_height = num_lines * line_height
-        start_y = self.pane_position[1] + (self.pane_position[3] - total_text_height) / 2
+        total_text_height: int = num_lines * line_height
+        start_y: float = self.pane_position[1] + (self.pane_position[3] - total_text_height) / 2
 
         # Render only the lines that fit in the pane
         for i, line in enumerate(lines[:max_lines]):

@@ -12,7 +12,7 @@ class Biodome(GeneratingBuilding):
         Initialize a Biodome object with default attributes.
         """
         super().__init__("food")
-        self.icon_path:str = r"MarsColonyGame\icons\bio-dome.png"
+        self.icon_path: str = r"MarsColonyGame\icons\bio-dome.png"
         self.metal_cost: int = 2
         self.object_name: str = "Bio Dome"
 

@@ -28,8 +28,8 @@ class Screen:
             screen_width (int, optional): Width of the screen. Defaults to 1100.
             sidebar_width (int, optional): Width of the sidebar. Defaults to 200.
         """
-        self.height = screen_height
-        self.width = screen_width
+        self.height: int = screen_height
+        self.width: int = screen_width
         self.screen = display.set_mode((screen_width, screen_height))
         display.set_caption("MarsColony")
 

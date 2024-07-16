@@ -17,7 +17,7 @@ class LivingCompartment(RadiusBuilding):
         """
         super().__init__(grid, x_position, y_position)
         self.metal_cost: int = 2
-        self.icon_path = r"MarsColonyGame\icons\living_compartment.png"
+        self.icon_path: str = r"MarsColonyGame\icons\living_compartment.png"
         self.info_text: str = ""
         self.needs_energy: bool = False
         self.object_name: str = "Living Compartment"

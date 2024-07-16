@@ -20,20 +20,20 @@ class Meteorite:
         self.grid = grid
 
         # Start at random x position
-        self.x = randint(0, screen.available_grid_width)
+        self.x: int = randint(0, screen.available_grid_width)
         # Start above the screen
-        self.y = -30  
+        self.y: int = -30  
         # Falling speed
-        self.speed = 5 
+        self.speed: int = 5 
 
-        self.icon_path = r"MarsColonyGame\icons\meteorite.png"
+        self.icon_path: str = r"MarsColonyGame\icons\meteorite.png"
         icon_manager = IconManager(grid.cell_size, self.icon_path)
         self.icon = icon_manager.get_scaled_icon()
         self.target_cell_x, self.target_cell_y = self.get_random_position()
         self.target_x, self.target_y = self.grid.get_screen_position(self.target_cell_x, self.target_cell_y)
 
-        self.target_position = Vector2(self.target_x, self.target_y)
-        self.current_position = Vector2(self.x, self.y)
+        self.target_position: Vector2 = Vector2(self.target_x, self.target_y)
+        self.current_position: Vector2 = Vector2(self.x, self.y)
 
     def fall(self) -> None:
         """
@@ -44,13 +44,13 @@ class Meteorite:
             return 
         
         if self.target_cell_x and self.target_cell_y:
-            distance_to_target = self.current_position.distance_to(self.target_position)
+            distance_to_target: float = self.current_position.distance_to(self.target_position)
             
             # Ensure the meteorite doesn't overshoot the target
             if distance_to_target < self.speed:
-                self.current_position = self.target_position
+                self.current_position: Vector2 = self.target_position
             else:
-                self.current_position = self.current_position.move_towards(self.target_position, self.speed)
+                self.current_position: Vector2 = self.current_position.move_towards(self.target_position, self.speed)
                     
             if distance_to_target <= 2:
                 self.impact()
@@ -62,17 +62,17 @@ class Meteorite:
         Returns:
             tuple: The (x, y) coordinates of the target cell in the grid.
         """
-        suitable_positions = self.grid.return_cells_suitable_for_meteorite()
+        suitable_positions: list[tuple[int, int]] = self.grid.return_cells_suitable_for_meteorite()
         if not suitable_positions:
             return None, None
-        pos = choice(suitable_positions)
+        pos: tuple[int, int] = choice(suitable_positions)
         return pos
 
     def impact(self) -> None:
         """
         Handle the impact of the meteorite on the grid.
         """
-        log_msg = self.grid.meteorite_impact(self.target_cell_x, self.target_cell_y)
+        log_msg: str = self.grid.meteorite_impact(self.target_cell_x, self.target_cell_y)
         self.current_position = None
         self.screen.sidebar.log.add_text(log_msg)
 

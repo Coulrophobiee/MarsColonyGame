@@ -6,6 +6,7 @@ from ui_elements.sidebar_elements.ressource_counter import RessourceCounter
 from ui_elements.sidebar_elements.day_counter import DayCounter
 from utils.icon_manager import IconManager
 from random import choice, sample
+from typing import Any
 
 class Colony:
 
@@ -21,20 +22,20 @@ class Colony:
         self.ressource_counter = ressource_counter
         self.day_counter = day_counter
         self.grid = grid
-        self.placed_generating_buildings = []
-        self.placed_non_generating_buildings = []
+        self.placed_generating_buildings: list[Any] = []
+        self.placed_non_generating_buildings: list[Any] = []
 
     def spawn_starting_buildings(self) -> None:
         """
         Spawn the starting buildings for the colony.
         """
-        potential_positions = self.grid.return_unoccupied_cells()
+        potential_positions: list[tuple[int, int]] = self.grid.return_unoccupied_cells()
         if not potential_positions:
             print("No unoccupied cells available.")
             return
 
         # Step 1: select random position
-        initial_position = choice(potential_positions)
+        initial_position: tuple[int, int] = choice(potential_positions)
         initial_x, initial_y = initial_position
 
         # Step 2: change position to avoid edge spawns
@@ -59,7 +60,8 @@ class Colony:
             (initial_x + dx, initial_y + dy)
             for dx in range(-1, 2)
             for dy in range(-1, 2)
-            if (dx != 0 or dy != 0) and 0 <= initial_x + dx < grid_width and 0 <= initial_y + dy < grid_height
+            if (dx != 0 or dy != 0) and 0 <= initial_x + dx < grid_width 
+            and 0 <= initial_y + dy < grid_height
         ]
 
         # Ensure that neighboring positions are unoccupied

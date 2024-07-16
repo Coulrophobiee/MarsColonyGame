@@ -49,10 +49,13 @@ class Sidebar:
         day_counter_pane.draw_rect()
         day_counter_pane.display_text(f"Day: {self.day_counter.days_passed}", True)
 
-        ressources: list[str] = list(filter(lambda a: not a.startswith("__") and not callable(getattr(self.ressource_counter, a)), dir(self.ressource_counter)))
+        ressources: list[str] = list(filter(lambda a: not a.startswith("__") and 
+                                            not callable(getattr(self.ressource_counter, a)), 
+                                            dir(self.ressource_counter)))
 
         for index, ressource in enumerate(ressources):
-            ressource_counter_position: tuple[int, int, int, int] = (self.x + 10, self.y + 80 + index * 50, self.width - 20, 40)
+            ressource_counter_position: tuple[int, int, int, int] = (self.x + 10, self.y + 80 + index * 50, 
+                                                                     self.width - 20, 40)
             ressource_counter_pane: Pane = Pane(screen, ressource_counter_position, (255, 255, 255))
             ressource_counter_pane.draw_rect()
             ressource_count: int = getattr(self.ressource_counter, ressource)

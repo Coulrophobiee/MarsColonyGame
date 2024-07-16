@@ -11,7 +11,7 @@ class OreMine(GeneratingBuilding):
         Initialize an OreMine object.
         """
         super().__init__("metal")
-        self.icon_path = r"MarsColonyGame\icons\ore-mine.png"
+        self.icon_path: str = r"MarsColonyGame\icons\ore-mine.png"
         self.metal_cost: int = 2
         self.object_name: str = "Ore Mine" 
 
