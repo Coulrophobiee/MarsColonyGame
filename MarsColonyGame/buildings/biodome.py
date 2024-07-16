@@ -1,5 +1,4 @@
 from buildings.generating_building import GeneratingBuilding
-from pygame import image
 
 class Biodome(GeneratingBuilding):
     """

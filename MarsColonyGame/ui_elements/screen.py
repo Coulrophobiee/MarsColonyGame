@@ -14,7 +14,7 @@ class Screen:
 
     def __init__(self, building_option: list, ressource_counter: RessourceCounter, 
                  day_counter: DayCounter, log: ConsoleLog, 
-                 screen_height: int = 600, screen_width: int = 1100, 
+                 screen_height: int = 700, screen_width: int = 1180, 
                  sidebar_width: int = 200) -> None:
         """
         Initialize the Screen class.
